@@ -29,4 +29,10 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
