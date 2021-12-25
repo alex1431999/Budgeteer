@@ -43,7 +43,7 @@ export default {
 <style lang="scss" scoped>
 .budgets {
   margin: auto;
-  width: 20%;
+  width: 40%;
 
   &--sheet {
     padding: 50px;
