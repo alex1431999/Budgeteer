@@ -6,13 +6,18 @@
       label="Monthly Income"
       append-icon="mdi-cash"
       type="number"
+      @input="value => $emit('input', value)"
     />
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    value: {
+      required: true,
+    },
+  },
 };
 </script>
 
