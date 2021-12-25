@@ -1,6 +1,12 @@
 <template>
   <div class="income">
-    <v-text-field hide-details outlined placeholder="Income" type="number" />
+    <v-text-field
+      hide-details
+      outlined
+      label="Monthly Income"
+      append-icon="mdi-cash"
+      type="number"
+    />
   </div>
 </template>
 
