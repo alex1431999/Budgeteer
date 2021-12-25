@@ -1,6 +1,12 @@
 <template>
   <div class="budgets">
-    <v-sheet class="budgets__sheet " rounded="xl">
+    <!-- Income -->
+    <v-sheet class="budgets--sheet" rounded="xl">
+      <income />
+    </v-sheet>
+
+    <!-- Budgets -->
+    <v-sheet class="budgets--sheet" rounded="xl">
       <div v-for="budget in budgets" :key="budget.id">
         <Budget :icon="budget.icon" :max="budget.max"/>
       </div>
@@ -10,10 +16,11 @@
 
 <script lang="ts">
 import Budget from '@/components/Budget.vue';
+import Income from '@/components/Income.vue';
 import { IBudget } from '@/types/Budget';
 
 export default {
-  components: { Budget },
+  components: { Budget, Income },
   computed: {
     budgets(): IBudget[] {
       return [
@@ -38,8 +45,9 @@ export default {
   margin: auto;
   width: 20%;
 
-  &__sheet {
+  &--sheet {
     padding: 50px;
+    margin-bottom: 20%;
   }
 }
 </style>
