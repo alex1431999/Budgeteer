@@ -20,6 +20,11 @@ export default {
           icon: 'mdi-bank',
           max: 15,
         },
+        {
+          id: '1',
+          icon: 'mdi-food-fork-drink',
+          max: 12,
+        },
       ];
     },
   },
