@@ -1,0 +1,27 @@
+<template>
+  <div class="excess">
+    <v-text-field :value="value" disabled outlined >
+      <v-icon slot="append" :color="iconColor">mdi-bank</v-icon>
+    </v-text-field>
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  props: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+  },
+  computed: {
+    iconColor(): string {
+      return this.value >= 0 ? 'green' : 'red';
+    },
+  },
+};
+</script>
+
+<style>
+
+</style>

@@ -7,6 +7,10 @@
 
     <!-- Budgets -->
     <v-sheet class="budgets--sheet" rounded="xl">
+      <!-- Excess -->
+      <excess :value="budgetRemaining"/>
+
+      <!-- Budget Groups -->
       <budget-group :budgets="budgets" :budget-remaining="budgetRemaining" />
     </v-sheet>
   </div>
@@ -16,6 +20,7 @@
 import Income from '@/components/Income.vue';
 import { IBudget } from '@/types/Budget';
 import BudgetGroup from '@/components/BudgetGroup.vue';
+import Excess from '@/components/Excess.vue';
 
 interface IData {
   income: number | null;
@@ -23,7 +28,7 @@ interface IData {
 }
 
 export default {
-  components: { Income, BudgetGroup },
+  components: { Income, BudgetGroup, Excess },
   data(): IData {
     return {
       income: null,
@@ -59,7 +64,7 @@ export default {
 
   &--sheet {
     padding: 50px;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
   }
 }
 </style>
