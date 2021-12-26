@@ -51,7 +51,7 @@ export default {
       return this.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0);
     },
     budgetRemaining(): number {
-      return this.income ? this.income - this.budgetAllocated : 0;
+      return this.income ? this.income - this.budgetAllocated : 0 - this.budgetAllocated;
     },
   },
 };

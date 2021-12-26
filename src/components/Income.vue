@@ -4,10 +4,12 @@
       hide-details
       outlined
       label="Monthly Income"
-      append-icon="mdi-cash"
       type="number"
-      @input="value => $emit('input', value)"
-    />
+      color="green"
+      @input="value => $emit('input', parseInt(value) || 0)"
+    >
+      <v-icon slot="append" color="green">mdi-bank</v-icon>
+    </v-text-field>
   </div>
 </template>
 
