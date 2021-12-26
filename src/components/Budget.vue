@@ -1,8 +1,13 @@
 <template>
   <div class="budget">
-    <v-slider thumb-label ticks hide-details :max="max" @input="value => $emit('input', value)">
-      <v-icon slot="prepend" color="blue">{{ icon }}</v-icon>
-    </v-slider>
+    <v-text-field
+      outlined
+      type="number"
+      :value="value"
+      @input="value => $emit('input', parseInt(value) || 0)"
+    >
+      <v-icon slot="append" color="blue">{{icon}}</v-icon>
+    </v-text-field>
   </div>
 </template>
 

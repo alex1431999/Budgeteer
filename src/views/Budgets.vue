@@ -7,17 +7,15 @@
 
     <!-- Budgets -->
     <v-sheet class="budgets--sheet" rounded="xl">
-      <div v-for="budget in budgets" :key="budget.id">
-        <Budget v-model="budget.value" :icon="budget.icon" :budgetRemaining="budgetRemaining"/>
-      </div>
+      <budget-group :budgets="budgets" :budget-remaining="budgetRemaining" />
     </v-sheet>
   </div>
 </template>
 
 <script lang="ts">
-import Budget from '@/components/Budget.vue';
 import Income from '@/components/Income.vue';
 import { IBudget } from '@/types/Budget';
+import BudgetGroup from '@/components/BudgetGroup.vue';
 
 interface IData {
   income: number | null;
@@ -25,7 +23,7 @@ interface IData {
 }
 
 export default {
-  components: { Budget, Income },
+  components: { Income, BudgetGroup },
   data(): IData {
     return {
       income: null,
