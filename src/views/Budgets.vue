@@ -12,6 +12,11 @@
 
       <!-- Budget Groups -->
       <budget-group :budgets="budgets" :budget-remaining="budgetRemaining" />
+
+      <!-- Add budget group button -->
+      <v-btn small fab class="budgets__add-budget-group-button">
+        <v-icon color="blue">mdi-plus</v-icon>
+      </v-btn>
     </v-sheet>
   </div>
 </template>
@@ -63,8 +68,15 @@ export default {
   width: 40%;
 
   &--sheet {
-    padding: 50px;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 30px;
     margin-bottom: 10%;
+  }
+
+  &__add-budget-group-button {
+    margin-top: 5%;
   }
 }
 </style>
