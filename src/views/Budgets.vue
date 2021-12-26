@@ -1,12 +1,12 @@
 <template>
   <div class="budgets">
     <!-- Income -->
-    <v-sheet class="budgets--sheet" rounded="xl">
+    <v-sheet class="budgets--sheet--income" rounded="xl">
       <income v-model="income"/>
     </v-sheet>
 
     <!-- Budgets -->
-    <v-sheet class="budgets--sheet" rounded="xl">
+    <v-sheet class="budgets--sheet--budgets" rounded="xl">
       <!-- Excess -->
       <excess :value="budgetRemaining"/>
 
@@ -68,7 +68,12 @@ export default {
   margin: auto;
   width: 40%;
 
-  &--sheet {
+  &--sheet--income {
+    padding: 50px;
+    margin-bottom: 10%;
+  }
+
+    &--sheet--budgets {
     padding-top: 50px;
     padding-left: 50px;
     padding-right: 50px;
