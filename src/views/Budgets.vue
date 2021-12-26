@@ -14,9 +14,7 @@
       <budget-group :budgets="budgets" :budget-remaining="budgetRemaining" />
 
       <!-- Add budget group button -->
-      <v-btn small fab class="budgets__add-budget-group-button">
-        <v-icon color="blue">mdi-plus</v-icon>
-      </v-btn>
+      <add-budget-group-dialog class="budgets__add-budget-group-button" />
     </v-sheet>
   </div>
 </template>
@@ -26,6 +24,7 @@ import Income from '@/components/Income.vue';
 import { IBudget } from '@/types/Budget';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
+import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 
 interface IData {
   income: number | null;
@@ -33,7 +32,9 @@ interface IData {
 }
 
 export default {
-  components: { Income, BudgetGroup, Excess },
+  components: {
+    Income, BudgetGroup, Excess, AddBudgetGroupDialog,
+  },
   data(): IData {
     return {
       income: null,
