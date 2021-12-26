@@ -17,12 +17,8 @@
           <v-card-text>
             <!-- Name -->
             <v-text-field label="Name">
-
-            <!-- Icon -->
-            <v-btn small fab slot="append-outer">
-              <v-icon color="blue">mdi-bank</v-icon>
-            </v-btn>
-
+              <!-- Icon -->
+              <icon-selector slot="append-outer" :icons="ICON_SELECTION_BUDGET_GROUPS" />
             </v-text-field>
           </v-card-text>
 
@@ -44,13 +40,19 @@
 </template>
 
 <script lang="ts">
+import IconSelector from './IconSelector.vue';
+import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
+
 interface IData {
+  ICON_SELECTION_BUDGET_GROUPS: string[],
   show: boolean,
 }
 
 export default {
+  components: { IconSelector },
   data(): IData {
     return {
+      ICON_SELECTION_BUDGET_GROUPS,
       show: false,
     };
   },
