@@ -11,17 +11,26 @@
       <excess :value="budgetRemaining"/>
 
       <!-- Budget Groups -->
-      <budget-group :budgets="budgets" :budget-remaining="budgetRemaining" />
+      <budget-group
+        v-for="budgetGroup in budgetGroups"
+        :key="budgetGroup.name"
+        :budgets="budgetGroup.budgets || []"
+        :icon="budgetGroup.icon"
+        :budget-remaining="budgetRemaining"
+      />
 
       <!-- Add budget group button -->
-      <add-budget-group-dialog class="budgets__add-budget-group-button" />
+      <add-budget-group-dialog
+        class="budgets__add-budget-group-button"
+        @onSubmit="addBudgetGroup"
+      />
     </v-sheet>
   </div>
 </template>
 
 <script lang="ts">
 import Income from '@/components/Income.vue';
-import { IBudget } from '@/types/Budget';
+import { IBudget, IBudgetGroup } from '@/types/Budget';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
@@ -29,6 +38,7 @@ import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 interface IData {
   income: number | null;
   budgets: IBudget[],
+  budgetGroups: IBudgetGroup[],
 }
 
 export default {
@@ -50,6 +60,7 @@ export default {
           value: 0,
         },
       ],
+      budgetGroups: [],
     };
   },
   computed: {
@@ -58,6 +69,11 @@ export default {
     },
     budgetRemaining(): number {
       return this.income ? this.income - this.budgetAllocated : 0 - this.budgetAllocated;
+    },
+  },
+  methods: {
+    addBudgetGroup(budgetGroup: IBudgetGroup): void {
+      this.budgetGroups.push(budgetGroup);
     },
   },
 };

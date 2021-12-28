@@ -9,12 +9,18 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn small fab v-bind="attrs" v-on="on">
-            <v-icon color="blue">mdi-bank</v-icon>
+            <v-icon color="blue">{{ value }}</v-icon>
           </v-btn>
         </template>
 
         <v-card>
-          <v-btn v-for="icon in icons" :key="icon" small fab>
+          <v-btn
+            @click="$emit('input', icon)"
+            v-for="icon in icons"
+            :key="icon"
+            small
+            fab
+          >
             <v-icon color="blue">{{ icon }}</v-icon>
           </v-btn>
         </v-card>
@@ -36,6 +42,10 @@ export default {
     };
   },
   props: {
+    value: {
+      type: String,
+      default: 'mdi-bank',
+    },
     icons: {
       type: Array as PropType<string[]>,
       default: (): string[] => [],

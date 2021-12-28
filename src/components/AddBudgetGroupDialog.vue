@@ -16,9 +16,13 @@
 
           <v-card-text>
             <!-- Name -->
-            <v-text-field label="Name">
+            <v-text-field label="Name" v-model="budgetGroupData.name">
               <!-- Icon -->
-              <icon-selector slot="append-outer" :icons="ICON_SELECTION_BUDGET_GROUPS" />
+              <icon-selector
+                slot="append-outer"
+                v-model="budgetGroupData.icon"
+                :icons="ICON_SELECTION_BUDGET_GROUPS"
+              />
             </v-text-field>
           </v-card-text>
 
@@ -29,7 +33,7 @@
             <v-btn
               color="primary"
               text
-              @click="show = false"
+              @click="submit"
             >
               Add
             </v-btn>
@@ -42,10 +46,12 @@
 <script lang="ts">
 import IconSelector from './IconSelector.vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
+import { IBudgetGroup } from '@/types/Budget';
 
 interface IData {
   ICON_SELECTION_BUDGET_GROUPS: string[],
   show: boolean,
+  budgetGroupData: IBudgetGroup,
 }
 
 export default {
@@ -54,7 +60,21 @@ export default {
     return {
       ICON_SELECTION_BUDGET_GROUPS,
       show: false,
+      budgetGroupData: {
+        name: '',
+        icon: ICON_SELECTION_BUDGET_GROUPS[0],
+      },
     };
+  },
+  methods: {
+    submit(): void {
+      this.show = false;
+
+      // Take a copy
+      const budgetGroup = JSON.parse(JSON.stringify(this.budgetGroupData));
+
+      this.$emit('onSubmit', budgetGroup);
+    },
   },
 };
 </script>
