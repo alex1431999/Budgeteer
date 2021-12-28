@@ -2,11 +2,14 @@
   <div class="budget-group">
     <v-expansion-panels accordion inset>
       <v-expansion-panel>
+        <span class="budget-group__header">
+          {{ budgetGroup.name }}
+        </span>
 
         <!-- Budgets Allocated -->
         <v-expansion-panel-header disable-icon-rotate>
           <v-slider readonly :value="budgetAllocated" :max="max" >
-            <v-icon slot="append" color="blue">{{icon}}</v-icon>
+            <v-icon slot="append" color="blue">{{budgetGroup.icon}}</v-icon>
           </v-slider>
 
           <!-- This is only to make `disable-icon-rotate` work -->
@@ -33,18 +36,13 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
-import { IBudget } from '@/types/Budget';
+import { IBudget, IBudgetGroup } from '@/types/Budget';
 
 export default {
   components: { Budget },
   props: {
-    icon: {
-      type: String,
-      default: 'mdi-alert-octagon-outline',
-    },
-    budgets: {
-      type: Array as PropType<IBudget[]>,
-      required: true,
+    budgetGroup: {
+      type: Object as PropType<IBudgetGroup>,
     },
     budgetRemaining: {
       type: Number,
@@ -52,6 +50,9 @@ export default {
     },
   },
   computed: {
+    budgets(): IBudget[] {
+      return this.budgetGroup.budgets || [];
+    },
     budgetAllocated(): number {
       return this.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0);
     },
@@ -62,6 +63,12 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.budget-group {
+  &__header {
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: bolder;
+  }
+}
 </style>

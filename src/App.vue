@@ -8,7 +8,11 @@
   </v-app>
 </template>
 
-<style>
+<style lang="scss">
+:root {
+  --primary-color: #2196F3;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

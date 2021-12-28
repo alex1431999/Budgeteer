@@ -14,8 +14,7 @@
       <budget-group
         v-for="budgetGroup in budgetGroups"
         :key="budgetGroup.name"
-        :budgets="budgetGroup.budgets || []"
-        :icon="budgetGroup.icon"
+        :budgetGroup="budgetGroup"
         :budget-remaining="budgetRemaining"
       />
 
