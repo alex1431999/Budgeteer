@@ -58,6 +58,14 @@ export default {
       return this.income ? this.income - this.budgetAllocated : 0 - this.budgetAllocated;
     },
   },
+  mounted(): void {
+    this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '') || [];
+  },
+  watch: {
+    budgetGroups(value: IBudgetGroup[]): void {
+      localStorage.setItem('budgetGroups', JSON.stringify(value));
+    },
+  },
   methods: {
     addBudgetGroup(budgetGroup: IBudgetGroup): void {
       this.budgetGroups.push(budgetGroup);
