@@ -1,5 +1,5 @@
 export interface IBudget {
-  id: string,
+  name: string,
   icon: string,
   value: number,
 }
@@ -7,5 +7,5 @@ export interface IBudget {
 export interface IBudgetGroup {
   name: string,
   icon: string,
-  budgets?: IBudget[],
+  budgets: IBudget[],
 }

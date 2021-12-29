@@ -1,6 +1,6 @@
 <template>
   <div class="budget-group">
-    <v-expansion-panels accordion inset>
+    <v-expansion-panels accordion inset v-model="showPanelModel">
       <v-expansion-panel>
         <span class="budget-group__header">
           {{ budgetGroup.name }}
@@ -20,7 +20,7 @@
 
         <!-- Budgets -->
         <v-expansion-panel-content>
-          <div v-for="budget in budgets" :key="budget.id">
+          <div v-for="(budget, i) in budgets" :key="i">
             <Budget
               v-model="budget.value"
               :icon="budget.icon"
@@ -28,6 +28,17 @@
             />
           </div>
         </v-expansion-panel-content>
+
+        <!-- Add Budget button -->
+        <v-btn
+          class="budget-group__add-budget-button"
+          small
+          fab
+          v-if="showPanel"
+          @click="addBudget"
+        >
+          <v-icon color="blue">mdi-plus</v-icon>
+        </v-btn>
       </v-expansion-panel>
     </v-expansion-panels>
   </div>
@@ -37,6 +48,11 @@
 import { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
+import { ICON_SELECTION_BUDGETS } from '@/config/iconSelection';
+
+interface IData {
+  showPanelModel: number,
+}
 
 export default {
   components: { Budget },
@@ -49,6 +65,11 @@ export default {
       required: true,
     },
   },
+  data(): IData {
+    return {
+      showPanelModel: 0,
+    };
+  },
   computed: {
     budgets(): IBudget[] {
       return this.budgetGroup.budgets || [];
@@ -59,6 +80,19 @@ export default {
     max(): number {
       return this.budgetAllocated + this.budgetRemaining;
     },
+    showPanel(): boolean {
+      return this.showPanelModel === 0;
+    },
+  },
+  methods: {
+    addBudget(): void {
+      const budget: IBudget = {
+        name: '',
+        icon: ICON_SELECTION_BUDGETS[0],
+        value: 0,
+      };
+      this.budgetGroup.budgets.push(budget);
+    },
   },
 };
 </script>
@@ -66,9 +100,13 @@ export default {
 <style lang="scss" scoped>
 .budget-group {
   &__header {
-    color: var(--primary-color);
+    color: rgb(242,242,242);
     font-size: 20px;
     font-weight: bolder;
+  }
+
+  &__add-budget-button {
+    margin-bottom: 20px;
   }
 }
 </style>

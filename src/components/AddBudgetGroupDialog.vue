@@ -3,7 +3,7 @@
     <v-dialog v-model="show" width="500">
       <!-- Add button -->
       <template v-slot:activator="{ on, attrs }">
-        <v-btn small fab v-bind="attrs" v-on="on">
+        <v-btn fab v-bind="attrs" v-on="on">
           <v-icon color="blue">mdi-plus</v-icon>
         </v-btn>
       </template>
@@ -63,6 +63,7 @@ export default {
       budgetGroupData: {
         name: '',
         icon: ICON_SELECTION_BUDGET_GROUPS[0],
+        budgets: [],
       },
     };
   },

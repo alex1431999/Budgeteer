@@ -36,7 +36,6 @@ import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 
 interface IData {
   income: number | null;
-  budgets: IBudget[],
   budgetGroups: IBudgetGroup[],
 }
 
@@ -47,24 +46,13 @@ export default {
   data(): IData {
     return {
       income: null,
-      budgets: [
-        {
-          id: '0',
-          icon: 'mdi-bank',
-          value: 0,
-        },
-        {
-          id: '1',
-          icon: 'mdi-food-fork-drink',
-          value: 0,
-        },
-      ],
       budgetGroups: [],
     };
   },
   computed: {
     budgetAllocated(): number {
-      return this.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0);
+      // eslint-disable-next-line max-len
+      return this.budgetGroups.reduce((totalSum: number, budgetGroup: IBudgetGroup) => totalSum + budgetGroup.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0), 0);
     },
     budgetRemaining(): number {
       return this.income ? this.income - this.budgetAllocated : 0 - this.budgetAllocated;
