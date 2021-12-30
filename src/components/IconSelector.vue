@@ -29,13 +29,13 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
+import Vue, { PropType } from 'vue';
 
 interface IData {
   show: boolean,
 }
 
-export default {
+export default Vue.extend({
   data(): IData {
     return {
       show: false,
@@ -51,7 +51,7 @@ export default {
       default: (): string[] => [],
     },
   },
-};
+});
 </script>
 
 <style>

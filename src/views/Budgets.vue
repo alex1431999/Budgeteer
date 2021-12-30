@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import Income from '@/components/Income.vue';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
 import BudgetGroup from '@/components/BudgetGroup.vue';
@@ -39,7 +40,7 @@ interface IData {
   budgetGroups: IBudgetGroup[],
 }
 
-export default {
+export default Vue.extend({
   components: {
     Income, BudgetGroup, Excess, AddBudgetGroupDialog,
   },
@@ -71,7 +72,7 @@ export default {
       this.budgetGroups.push(budgetGroup);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

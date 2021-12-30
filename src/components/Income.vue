@@ -14,13 +14,15 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   props: {
     value: {
       required: true,
     },
   },
-};
+});
 </script>
 
 <style>

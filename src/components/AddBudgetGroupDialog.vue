@@ -44,6 +44,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import IconSelector from './IconSelector.vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
 import { IBudgetGroup } from '@/types/Budget';
@@ -54,7 +55,7 @@ interface IData {
   budgetGroupData: IBudgetGroup,
 }
 
-export default {
+export default Vue.extend({
   components: { IconSelector },
   data(): IData {
     return {
@@ -77,7 +78,7 @@ export default {
       this.$emit('onSubmit', budgetGroup);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

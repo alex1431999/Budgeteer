@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
+import Vue, { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
 import { ICON_SELECTION_BUDGETS } from '@/config/iconSelection';
@@ -54,7 +54,7 @@ interface IData {
   showPanelModel: number,
 }
 
-export default {
+export default Vue.extend({
   components: { Budget },
   props: {
     budgetGroup: {
@@ -94,7 +94,7 @@ export default {
       this.budgetGroup.budgets.push(budget);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
