@@ -14,7 +14,11 @@
             :value="budgetAllocated"
             :max="income"
           >
-            <v-icon slot="append" color="blue">{{budgetGroup.icon}}</v-icon>
+             <icon-selector
+                slot="append"
+                v-model="budgetGroup.icon"
+                :icons="ICON_SELECTION_BUDGET_GROUPS"
+              />
           </v-slider>
 
           <!-- This is only to make `disable-icon-rotate` work -->
@@ -52,14 +56,17 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
+import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
+import IconSelector from './IconSelector.vue';
 
 interface IData {
   showPanelModel: number,
+  ICON_SELECTION_BUDGET_GROUPS: string[],
 }
 
 export default Vue.extend({
-  components: { Budget },
+  components: { Budget, IconSelector },
   props: {
     budgetGroup: {
       type: Object as PropType<IBudgetGroup>,
@@ -71,6 +78,7 @@ export default Vue.extend({
   },
   data(): IData {
     return {
+      ICON_SELECTION_BUDGET_GROUPS,
       showPanelModel: 0,
     };
   },
@@ -106,6 +114,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+::v-deep .v-input__append-outer {
+  margin-top: 0 !important;
+  margin-top: 0 !important;
+}
+
 .budget-group {
   &__header {
     color: rgb(242,242,242);
