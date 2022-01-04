@@ -24,6 +24,7 @@
             <Budget
               v-model="budget.value"
               :icon="budget.icon"
+              :name.sync="budget.name"
               :budget-remaining="budgetRemaining"
             />
           </div>
