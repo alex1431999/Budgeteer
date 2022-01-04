@@ -63,8 +63,11 @@ export default Vue.extend({
     this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '') || [];
   },
   watch: {
-    budgetGroups(value: IBudgetGroup[]): void {
-      localStorage.setItem('budgetGroups', JSON.stringify(value));
+    budgetGroups: {
+      handler(value: IBudgetGroup[]) {
+        localStorage.setItem('budgetGroups', JSON.stringify(value));
+      },
+      deep: true,
     },
   },
   methods: {
