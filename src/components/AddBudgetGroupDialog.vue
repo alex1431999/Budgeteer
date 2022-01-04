@@ -11,7 +11,7 @@
       <!-- Dialog -->
         <v-card>
           <v-card-title>
-            Add Bugdet Group
+            Add Budget Group
           </v-card-title>
 
           <v-card-text>
