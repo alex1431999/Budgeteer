@@ -14,15 +14,21 @@
         </template>
 
         <v-card>
-          <v-btn
-            @click="$emit('input', icon)"
-            v-for="icon in icons"
-            :key="icon"
-            small
-            fab
-          >
-            <v-icon color="blue">{{ icon }}</v-icon>
-          </v-btn>
+          <v-container>
+            <v-row>
+              <v-col cols="3" v-for="icon in icons" :key="icon">
+
+                <!-- Selectable icon -->
+                <v-btn
+                  @click="$emit('input', icon)"
+                  small
+                  fab
+                >
+                  <v-icon color="blue">{{ icon }}</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card>
       </v-menu>
   </div>
