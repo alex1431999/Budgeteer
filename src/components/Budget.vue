@@ -24,7 +24,7 @@
             :value="value"
             @input="value => $emit('input', parseInt(value) || 0)"
           >
-            <v-icon slot="append" color="blue">{{icon}}</v-icon>
+            <v-icon slot="append" color="blue">mdi-currency-usd</v-icon>
           </v-text-field>
         </v-col>
 
@@ -49,9 +49,6 @@ export default Vue.extend({
     value: {
       type: Number,
       required: true,
-    },
-    icon: {
-      type: String,
     },
     name: {
       type: String,

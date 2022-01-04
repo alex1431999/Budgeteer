@@ -64,7 +64,7 @@ export default Vue.extend({
       budgetGroupData: {
         name: '',
         icon: ICON_SELECTION_BUDGET_GROUPS[0],
-        budgets: [{ name: '', value: 0, icon: 'mdi-bank' }],
+        budgets: [{ name: '', value: 0 }],
       },
     };
   },

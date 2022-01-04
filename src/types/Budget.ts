@@ -1,6 +1,5 @@
 export interface IBudget {
   name: string,
-  icon: string,
   value: number,
 }
 

@@ -28,7 +28,6 @@
           <div v-for="(budget, i) in budgets" :key="i">
             <Budget
               v-model="budget.value"
-              :icon="budget.icon"
               :name.sync="budget.name"
               @on-delete="deleteBudget(i)"
             />
@@ -91,7 +90,6 @@ export default Vue.extend({
     addBudget(): void {
       const budget: IBudget = {
         name: '',
-        icon: ICON_SELECTION_BUDGETS[0],
         value: 0,
       };
       this.budgetGroup.budgets.push(budget);
