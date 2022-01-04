@@ -12,10 +12,11 @@
 
       <!-- Budget Groups -->
       <budget-group
-        v-for="budgetGroup in budgetGroups"
+        v-for="(budgetGroup, i) in budgetGroups"
         :key="budgetGroup.name"
         :income="income"
         :budgetGroup="budgetGroup"
+        @on-delete="deleteBudgetGroup(i)"
       />
 
       <!-- Add budget group button -->
@@ -77,6 +78,9 @@ export default Vue.extend({
   methods: {
     addBudgetGroup(budgetGroup: IBudgetGroup): void {
       this.budgetGroups.push(budgetGroup);
+    },
+    deleteBudgetGroup(index: number): void {
+      this.budgetGroups.splice(index, 1);
     },
   },
 });

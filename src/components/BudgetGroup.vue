@@ -98,6 +98,11 @@ export default Vue.extend({
     },
     deleteBudget(index: number): void {
       this.budgetGroup.budgets.splice(index, 1);
+
+      /* If no budgets are remaining the whole group gets deleted */
+      if (this.budgetGroup.budgets.length === 0) {
+        this.$emit('on-delete');
+      }
     },
   },
 });

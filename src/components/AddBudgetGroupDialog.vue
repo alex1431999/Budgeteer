@@ -64,7 +64,7 @@ export default Vue.extend({
       budgetGroupData: {
         name: '',
         icon: ICON_SELECTION_BUDGET_GROUPS[0],
-        budgets: [],
+        budgets: [{ name: '', value: 0, icon: 'mdi-bank' }],
       },
     };
   },
@@ -75,7 +75,7 @@ export default Vue.extend({
       // Take a copy
       const budgetGroup = JSON.parse(JSON.stringify(this.budgetGroupData));
 
-      this.$emit('onSubmit', budgetGroup);
+      this.$emit('on-submit', budgetGroup);
     },
   },
 });
