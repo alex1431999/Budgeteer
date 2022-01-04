@@ -6,6 +6,7 @@
       label="Monthly Income"
       type="number"
       color="green"
+      :value="value"
       @input="value => $emit('input', parseInt(value) || 0)"
     >
       <v-icon slot="append" color="green">mdi-bank</v-icon>

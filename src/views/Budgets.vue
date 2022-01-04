@@ -61,6 +61,7 @@ export default Vue.extend({
   },
   mounted(): void {
     this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '') || [];
+    this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
   },
   watch: {
     budgetGroups: {
@@ -68,6 +69,9 @@ export default Vue.extend({
         localStorage.setItem('budgetGroups', JSON.stringify(value));
       },
       deep: true,
+    },
+    income(value: number): void {
+      localStorage.setItem('income', value.toString());
     },
   },
   methods: {
