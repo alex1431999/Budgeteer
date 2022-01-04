@@ -8,7 +8,7 @@
 
         <!-- Budgets Allocated -->
         <v-expansion-panel-header disable-icon-rotate>
-          <v-slider readonly :value="budgetAllocated" :max="max" >
+          <v-slider :key="budgetAllocated + max" readonly :value="budgetAllocated" :max="max" >
             <v-icon slot="append" color="blue">{{budgetGroup.icon}}</v-icon>
           </v-slider>
 
