@@ -31,6 +31,7 @@
               :icon="budget.icon"
               :name.sync="budget.name"
               :budget-remaining="budgetRemaining"
+              @on-delete="deleteBudget(i)"
             />
           </div>
         </v-expansion-panel-content>
@@ -95,6 +96,9 @@ export default Vue.extend({
         value: 0,
       };
       this.budgetGroup.budgets.push(budget);
+    },
+    deleteBudget(index: number): void {
+      this.budgetGroup.budgets.splice(index, 1);
     },
   },
 });
