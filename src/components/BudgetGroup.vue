@@ -8,7 +8,12 @@
 
         <!-- Budgets Allocated -->
         <v-expansion-panel-header disable-icon-rotate>
-          <v-slider :key="budgetAllocated + max" readonly :value="budgetAllocated" :max="max" >
+          <v-slider
+            readonly
+            :key="budgetAllocated + income"
+            :value="budgetAllocated"
+            :max="income"
+          >
             <v-icon slot="append" color="blue">{{budgetGroup.icon}}</v-icon>
           </v-slider>
 
@@ -61,7 +66,7 @@ export default Vue.extend({
     budgetGroup: {
       type: Object as PropType<IBudgetGroup>,
     },
-    budgetRemaining: {
+    income: {
       type: Number,
       required: true,
     },
@@ -77,9 +82,6 @@ export default Vue.extend({
     },
     budgetAllocated(): number {
       return this.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0);
-    },
-    max(): number {
-      return this.budgetAllocated + this.budgetRemaining;
     },
     showPanel(): boolean {
       return this.showPanelModel === 0;

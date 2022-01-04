@@ -14,14 +14,14 @@
       <budget-group
         v-for="budgetGroup in budgetGroups"
         :key="budgetGroup.name"
+        :income="income"
         :budgetGroup="budgetGroup"
-        :budget-remaining="budgetRemaining"
       />
 
       <!-- Add budget group button -->
       <add-budget-group-dialog
         class="budgets__add-budget-group-button"
-        @onSubmit="addBudgetGroup"
+        @on-submit="addBudgetGroup"
       />
     </v-sheet>
   </div>
