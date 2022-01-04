@@ -53,7 +53,6 @@
 import Vue, { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
-import { ICON_SELECTION_BUDGETS } from '@/config/iconSelection';
 
 interface IData {
   showPanelModel: number,
