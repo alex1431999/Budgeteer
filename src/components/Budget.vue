@@ -57,15 +57,6 @@ export default Vue.extend({
       type: String,
       default: '',
     },
-    budgetRemaining: {
-      type: Number,
-      default: 0,
-    },
-  },
-  computed: {
-    max(): number {
-      return this.budgetRemaining + this.value;
-    },
   },
 });
 </script>
