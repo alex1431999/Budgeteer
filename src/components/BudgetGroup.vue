@@ -48,6 +48,7 @@
         <v-expansion-panel-content>
           <div v-for="(budget, i) in budgets" :key="i">
             <Budget
+              class="budget-group__budget"
               v-model="budget.value"
               :name.sync="budget.name"
               @on-delete="deleteBudget(i)"
@@ -138,11 +139,34 @@ export default Vue.extend({
   margin-top: 0 !important;
 }
 
+@keyframes slidein {
+  from {
+    margin-left: 40%;
+    opacity: 0;
+  }
+
+  75% {
+    font-size: 300%;
+    margin-left: 25%;
+    opacity: 0.5;
+  }
+
+  to {
+    margin-left: 0%;
+    opacity: 1;
+  }
+}
+
 .budget-group {
   &__header {
     color: rgb(242,242,242);
     font-size: 20px;
     font-weight: bolder;
+  }
+
+  &__budget {
+    animation-duration: 0.4s;
+    animation-name: slidein;
   }
 
   &__add-budget-button {
