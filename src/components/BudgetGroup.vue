@@ -1,6 +1,6 @@
 <template>
   <div class="budget-group">
-    <v-expansion-panels accordion inset v-model="showPanelModel">
+    <v-expansion-panels accordion v-model="showPanelModel">
       <v-expansion-panel>
         <v-expansion-panel-header disable-icon-rotate>
           <v-container>
