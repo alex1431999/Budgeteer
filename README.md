@@ -1,4 +1,4 @@
-# budgeteer
+# easy-budgets
 
 ## Project setup
 ```
