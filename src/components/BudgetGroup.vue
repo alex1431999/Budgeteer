@@ -2,24 +2,35 @@
   <div class="budget-group">
     <v-expansion-panels accordion inset v-model="showPanelModel">
       <v-expansion-panel>
-        <span class="budget-group__header">
-          {{ budgetGroup.name }}
-        </span>
-
-        <!-- Budgets Allocated -->
         <v-expansion-panel-header disable-icon-rotate>
-          <v-slider
-            readonly
-            :key="budgetAllocated + income"
-            :value="budgetAllocated"
-            :max="income"
-          >
-             <icon-selector
-                slot="append"
-                v-model="budgetGroup.icon"
-                :icons="ICON_SELECTION_BUDGET_GROUPS"
-              />
-          </v-slider>
+          <v-container>
+            <v-row>
+
+              <!-- Budget name -->
+              <v-col cols="3">
+                <span class="budget-group__header">
+                  {{ budgetGroup.name }}
+                </span>
+
+              </v-col>
+
+              <!-- Budgets Allocated -->
+              <v-col>
+                <v-slider
+                  readonly
+                  :key="budgetAllocated + income"
+                  :value="budgetAllocated"
+                  :max="income"
+                >
+                  <icon-selector
+                      slot="append"
+                      v-model="budgetGroup.icon"
+                      :icons="ICON_SELECTION_BUDGET_GROUPS"
+                    />
+                </v-slider>
+              </v-col>
+            </v-row>
+          </v-container>
 
           <!-- This is only to make `disable-icon-rotate` work -->
           <template v-slot:actions>
