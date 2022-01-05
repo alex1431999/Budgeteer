@@ -147,12 +147,6 @@ export default Vue.extend({
     opacity: 0;
   }
 
-  75% {
-    font-size: 300%;
-    margin-left: 25%;
-    opacity: 0.5;
-  }
-
   to {
     margin-left: 0%;
     opacity: 1;
@@ -167,7 +161,7 @@ export default Vue.extend({
   }
 
   &__budget {
-    animation-duration: 0.4s;
+    animation-duration: 0.5s;
     animation-name: slidein;
   }
 
