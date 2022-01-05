@@ -1,6 +1,6 @@
 <template>
   <div class="excess">
-    <v-text-field :value="value" disabled outlined >
+    <v-text-field :value="value" label="Excess" disabled outlined>
       <v-icon slot="append" :color="iconColor">mdi-cash</v-icon>
     </v-text-field>
   </div>
