@@ -24,6 +24,8 @@
               <v-col>
                 <v-slider
                   readonly
+                  thumb-label="always"
+                  thumb-size="30"
                   :key="budgetAllocated + income"
                   :value="budgetAllocated"
                   :max="income"
