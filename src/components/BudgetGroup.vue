@@ -9,7 +9,13 @@
               <!-- Budget name -->
               <v-col cols="3">
                 <span class="budget-group__header">
-                  {{ budgetGroup.name }}
+                  <v-text-field
+                    solo
+                    hide-details
+                    v-model="nameEdited"
+                    @blur="budgetGroup.name = nameEdited"
+                  >
+                  </v-text-field>
                 </span>
 
               </v-col>
@@ -74,6 +80,7 @@ import IconSelector from './IconSelector.vue';
 interface IData {
   showPanelModel: number,
   ICON_SELECTION_BUDGET_GROUPS: string[],
+  nameEdited: string,
 }
 
 export default Vue.extend({
@@ -91,6 +98,7 @@ export default Vue.extend({
     return {
       ICON_SELECTION_BUDGET_GROUPS,
       showPanelModel: 0,
+      nameEdited: this.budgetGroup.name,
     };
   },
   computed: {
