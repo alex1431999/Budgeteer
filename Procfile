@@ -1,0 +1,1 @@
+client: yarn --cwd client serve
