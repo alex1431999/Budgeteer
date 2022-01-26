@@ -100,7 +100,7 @@ export default Vue.extend({
   data(): IData {
     return {
       ICON_SELECTION_BUDGET_GROUPS,
-      showPanelModel: 0,
+      showPanelModel: 1,
       nameEdited: this.budgetGroup.name,
     };
   },
