@@ -2,11 +2,23 @@
   <v-app>
     <div id="app">
       <div id="nav">
+        <Header />
       </div>
       <router-view/>
     </div>
   </v-app>
 </template>
+
+<script>
+import Vue from 'vue';
+import Header from './components/Header.vue';
+
+export default Vue.extend({
+  components: { Header },
+  name: 'App',
+});
+
+</script>
 
 <style lang="scss">
 :root {
