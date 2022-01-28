@@ -14,7 +14,7 @@
       <budget-group
         v-for="(budgetGroup, i) in budgetGroups"
         :key="budgetGroup.name"
-        :income="income"
+        :income="income || 0"
         :budgetGroup="budgetGroup"
         @on-delete="deleteBudgetGroup(i)"
       />
