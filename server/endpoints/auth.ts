@@ -1,0 +1,30 @@
+import { Request } from 'express';
+import { auth, OAuth2Client } from 'google-auth-library';
+import app from '../server';
+
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+
+app.post('/sign-in', async (req: Request<{}, {}, { token: string }>, res) => {
+  const token = req.body.token;
+
+  const client = new OAuth2Client(CLIENT_ID);
+
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID,
+  });
+
+  const payload = ticket.getPayload();
+
+  if (payload.aud.includes(CLIENT_ID)) {
+    const userId = payload.sub;
+    
+    req.session.userId = userId;
+
+    req.session.save(() => {
+      return res.json(req.session);
+    });
+  } else {
+    return res.sendStatus(401);
+  }
+});

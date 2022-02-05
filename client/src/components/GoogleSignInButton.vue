@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { signIn } from '@/api/auth';
 
 export default Vue.extend({
   name: 'GoogleSignInButton',
@@ -29,7 +30,9 @@ export default Vue.extend({
     },
     onSignIn(googleUser: any): void {
       this.isSignedIn = true;
-      console.log(googleUser.getBasicProfile());
+
+      const token = googleUser.getAuthResponse().id_token;
+      signIn(token).then().catch(this.signOut);
     },
     async signOut() {
       await window.gapi.auth2.getAuthInstance().signOut();

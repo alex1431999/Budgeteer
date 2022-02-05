@@ -1,1 +1,1 @@
-declare var gapi: any;
+declare const gapi: any;
