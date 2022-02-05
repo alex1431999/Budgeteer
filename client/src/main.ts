@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import vuetify from './plugins/vuetify';
 import './types';
+import './api/index';
 
 Vue.config.productionTip = false;
 

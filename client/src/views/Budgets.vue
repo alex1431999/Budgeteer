@@ -31,10 +31,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import Income from '@/components/Income.vue';
-import { IBudget, IBudgetGroup } from '@/types/Budget';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
+import { setBudgetGroups } from '@/api/budgets';
+import { IBudget, IBudgetGroup } from '../../../types/Budget';
 
 interface IData {
   income: number | null;
@@ -66,8 +67,8 @@ export default Vue.extend({
   },
   watch: {
     budgetGroups: {
-      handler(value: IBudgetGroup[]) {
-        localStorage.setItem('budgetGroups', JSON.stringify(value));
+      handler() {
+        this.storeBudgetGroups();
       },
       deep: true,
     },
@@ -81,6 +82,16 @@ export default Vue.extend({
     },
     deleteBudgetGroup(index: number): void {
       this.budgetGroups.splice(index, 1);
+    },
+    isSignedIn() {
+      return window.gapi?.auth2?.getAuthInstance().isSignedIn.get();
+    },
+    storeBudgetGroups() {
+      if (this.isSignedIn()) {
+        setBudgetGroups(this.budgetGroups);
+      } else {
+        localStorage.setItem('budgetGroups', JSON.stringify(this.budgetGroups));
+      }
     },
   },
 });
