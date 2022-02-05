@@ -27,7 +27,7 @@ export default Vue.extend({
         }
       }, 200);
     },
-    onSignIn(googleUser: string): void {
+    onSignIn(googleUser: any): void {
       this.isSignedIn = true;
       console.log(googleUser.getBasicProfile());
     },
