@@ -14,10 +14,10 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: yarn --cwd ./server
+        run: yarn --cwd ./server install
 
       - name: Linting
-        run: yarn lint --cwd ./server
+        run: yarn --cwd ./server lint
       
       - name: Build
-        run: yarn build --cwd ./server
+        run: yarn --cwd ./server build
