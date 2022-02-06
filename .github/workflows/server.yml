@@ -5,6 +5,9 @@ on: [push]
 jobs:
   server:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
 
     steps:
       - uses: actions/checkout@v2
@@ -14,10 +17,10 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: yarn --cwd ./server install
+        run: yarn
 
       - name: Linting
-        run: yarn --cwd ./server lint
+        run: yarn lint
       
       - name: Build
-        run: yarn --cwd ./server build
+        run: yarn build
