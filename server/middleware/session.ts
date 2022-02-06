@@ -13,6 +13,6 @@ const options = {
   saveUninitialized: true,
   cookie: { maxAge: thirdyDays },
   resave: true,
-}
+};
 
 app.use(sessions(options));
