@@ -77,7 +77,7 @@
 import Vue, { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
-import { IBudget, IBudgetGroup } from '@/types/Budget';
+import { IBudget, IBudgetGroup } from '../../../types/Budget';
 import IconSelector from './IconSelector.vue';
 
 interface IData {

@@ -1,1 +1,1 @@
-import './gapi';
+import './window';
