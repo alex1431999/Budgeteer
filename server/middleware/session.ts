@@ -1,5 +1,5 @@
 import * as sessions from 'express-session';
-import app from '../server';
+import app from '../app';
 
 declare module 'express-session' {
   export interface SessionData {

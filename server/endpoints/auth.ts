@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { OAuth2Client } from 'google-auth-library';
-import app from '../server';
+import app from '../app';
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 

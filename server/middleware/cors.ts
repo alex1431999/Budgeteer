@@ -1,5 +1,5 @@
 import * as cors from 'cors';
-import app from '../server';
+import app from '../app';
 
 const options = {
   origin: process.env.CLIENT_URL,

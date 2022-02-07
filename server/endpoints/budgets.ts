@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import app from '../server';
+import app from '../app';
 import { IBudgetGroup } from '../../types/Budget';
 import { setBudgetGroups } from '../database/queries/budgetGroups';
 

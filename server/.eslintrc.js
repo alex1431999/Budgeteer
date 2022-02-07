@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
@@ -13,7 +15,7 @@ module.exports = {
         'airbnb-typescript/base',
       ],
       parserOptions: {
-        project: ['./tsconfig.json'],
+        project: [path.join(__dirname, '/tsconfig.json')],
       },
       rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
