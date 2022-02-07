@@ -1,5 +1,10 @@
 <template>
   <div class="budgets">
+    <!-- Budget sheet menu -->
+    <v-sheet class="budgets--sheet--budget_sheet_menu" rounded="xl">
+      <budget-sheet-menu />
+    </v-sheet>
+
     <!-- Income -->
     <v-sheet class="budgets--sheet--income" rounded="xl">
       <income v-model="income"/>
@@ -30,6 +35,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import BudgetSheetMenu from '@/components/BudgetSheetMenu.vue';
 import Income from '@/components/Income.vue';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
@@ -44,7 +50,7 @@ interface IData {
 
 export default Vue.extend({
   components: {
-    Income, BudgetGroup, Excess, AddBudgetGroupDialog,
+    Income, BudgetGroup, Excess, AddBudgetGroupDialog, BudgetSheetMenu,
   },
   data(): IData {
     return {
@@ -102,17 +108,24 @@ export default Vue.extend({
   margin: auto;
   width: 40%;
 
-  &--sheet--income {
-    padding: 50px;
-    margin-bottom: 10%;
-  }
+  &--sheet {
+    &--budget_sheet_menu {
+      padding: 50px;
+      margin-bottom: 10%;
+    }
 
-    &--sheet--budgets {
-    padding-top: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 30px;
-    margin-bottom: 10%;
+    &--income {
+      padding: 50px;
+      margin-bottom: 10%;
+    }
+
+    &--budgets {
+      padding-top: 50px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-bottom: 30px;
+      margin-bottom: 10%;
+    }
   }
 
   &__add-budget-group-button {

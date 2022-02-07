@@ -1,7 +1,12 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
     node: true,
+  },
+  parserOptions: {
+    project: [path.join(__dirname, '/tsconfig.json')],
   },
   extends: [
     'plugin:vue/essential',
