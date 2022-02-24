@@ -1,10 +1,5 @@
 <template>
   <div class="budgets">
-    <!-- Budget sheet menu -->
-    <v-sheet class="budgets--sheet--budget_sheet_menu" rounded="xl">
-      <budget-sheet-menu />
-    </v-sheet>
-
     <!-- Income -->
     <v-sheet class="budgets--sheet--income" rounded="xl">
       <income v-model="income"/>
@@ -35,13 +30,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import BudgetSheetMenu from '@/components/BudgetSheetMenu.vue';
 import Income from '@/components/Income.vue';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 import { setBudgetGroups } from '@/api/budgets';
-import { IBudget, IBudgetGroup } from '../../../types/Budget';
+import { IBudget, IBudgetGroup, IBudgetSheet } from '../../../types/Budget';
 
 interface IData {
   income: number | null;
@@ -50,7 +44,7 @@ interface IData {
 
 export default Vue.extend({
   components: {
-    Income, BudgetGroup, Excess, AddBudgetGroupDialog, BudgetSheetMenu,
+    Income, BudgetGroup, Excess, AddBudgetGroupDialog,
   },
   data(): IData {
     return {

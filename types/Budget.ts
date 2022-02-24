@@ -8,3 +8,8 @@ export interface IBudgetGroup {
   icon: string,
   budgets: IBudget[],
 }
+
+export interface IBudgetSheet {
+  name: string,
+  budgetGroups: IBudgetGroup[],
+}
