@@ -62,6 +62,8 @@ export default Vue.extend({
     },
   },
   mounted(): void {
+    this.$store.dispatch('loadBudgetSheets');
+
     this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '[]') || [];
     this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
   },
