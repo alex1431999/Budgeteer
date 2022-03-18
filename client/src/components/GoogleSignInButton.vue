@@ -30,6 +30,7 @@ export default Vue.extend({
     },
     onSignIn(googleUser: any): void {
       this.isSignedIn = true;
+      this.$store.commit('setIsSignedIn', true);
 
       const token = googleUser.getAuthResponse().id_token;
       signIn(token).then().catch(this.signOut);
@@ -37,6 +38,7 @@ export default Vue.extend({
     async signOut() {
       await window.gapi.auth2.getAuthInstance().signOut();
       this.isSignedIn = false;
+      this.$store.commit('setIsSignedIn', false);
       this.renderButton();
     },
     renderButton() {

@@ -34,7 +34,7 @@ import Income from '@/components/Income.vue';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
-import { setBudgetSheets } from '@/api/budgets';
+import { setBudgetSheets, getBudgetSheets } from '@/api/budgets';
 import { IBudget, IBudgetGroup, IBudgetSheet } from '../../../types/Budget';
 
 interface IData {
@@ -66,13 +66,22 @@ export default Vue.extend({
     budgetRemaining(): number {
       return this.income ? this.income - this.budgetAllocated : 0 - this.budgetAllocated;
     },
+    isSignedIn(): boolean {
+      return this.$store.state.authStore.isSignedIn;
+    },
   },
   mounted(): void {
-    if (!this.isSignedIn()) {
+    if (!this.isSignedIn) {
       this.restoreFromLocalStorage();
     }
   },
   watch: {
+    async isSignedIn(isSignedIn: boolean) {
+      if (isSignedIn) {
+        const budgetSheets = (await getBudgetSheets()).data;
+        this.$store.dispatch('setBudgetSheets', budgetSheets);
+      }
+    },
     budgetSheetSelected: {
       handler(budgetSheet: IBudgetSheet) {
         this.budgetGroups = budgetSheet.budgetGroups;
@@ -82,7 +91,7 @@ export default Vue.extend({
     },
     budgetSheets: {
       handler(budgetSheets: IBudgetSheet[]) {
-        if (this.isSignedIn()) {
+        if (this.isSignedIn) {
           setBudgetSheets(budgetSheets);
         } else {
           localStorage.setItem('budgetSheets', JSON.stringify(this.budgetSheets));
@@ -106,9 +115,6 @@ export default Vue.extend({
     },
     deleteBudgetGroup(index: number): void {
       this.budgetGroups.splice(index, 1);
-    },
-    isSignedIn() {
-      return window.gapi?.auth2?.getAuthInstance().isSignedIn.get();
     },
     storeBudgetGroups() {
       this.$store.dispatch('setBudgetGroups', this.budgetGroups);
