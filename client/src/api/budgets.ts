@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IBudgetGroup } from '../../../types/Budget';
+import { IBudgetSheet } from '../../../types/Budget';
 
 /**
  * Sign into the backend
@@ -7,4 +7,4 @@ import { IBudgetGroup } from '../../../types/Budget';
  * @returns Promise
  */
 // eslint-disable-next-line
-export const setBudgetGroups = (budgetGroups: IBudgetGroup[]) => axios.post('/budgetGroups', { budgetGroups });
+export const setBudgetSheets = (budgetSheets: IBudgetSheet[]) => axios.post('/budgetSheets', { budgetSheets });

@@ -17,7 +17,7 @@ interface IActionParams {
  */
 const budgetSheetDefault: IBudgetSheet = {
   name: 'New Sheet',
-  budgetGroups: [{ name: 'test', budgets: [], icon: 'mdi-bank' }],
+  budgetGroups: [],
 };
 
 const getInitialState = (): IState => ({
@@ -71,6 +71,18 @@ export const mutations = {
 };
 
 export const actions = {
+  setBudgetSheets({ commit, state }: IActionParams, budgetSheets: IBudgetSheet[]): void {
+    // Set budget sheets
+    commit('setBudgetSheets', budgetSheets);
+
+    /* If no sheets are stored load default sheet */
+    if (budgetSheets.length === 0) {
+      commit('addBudgetSheet', budgetSheetDefault);
+    }
+
+    // Select the first sheet as a default
+    commit('setBudgetSheetSelected', state.budgetSheets[0]);
+  },
   addBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): boolean {
     const sheetExists = state.budgetSheets.find(({ name }) => name === budgetSheet.name);
 
@@ -108,24 +120,6 @@ export const actions = {
   },
   setBudgetGroups({ commit, state }: IActionParams, budgetGroups: IBudgetGroup[]): void {
     commit('setBudgetGroups', { budgetSheet: state.budgetSheetSelected, budgetGroups });
-  },
-  loadBudgetSheets({ commit, state }: IActionParams): void {
-    // TODO add step that loads budget sheets from api
-    const budgetSheets: IBudgetSheet[] = [];
-
-    // Set budget sheets
-    commit('setBudgetSheets', budgetSheets);
-
-    /* If no sheets are stored load default sheet */
-    if (budgetSheets.length === 0) {
-      commit('addBudgetSheet', budgetSheetDefault);
-    }
-
-    // Select the first sheet as a default
-    commit('setBudgetSheetSelected', state.budgetSheets[0]);
-  },
-  saveBudgetSheets(): void {
-    // TODO: send save request to store the budget sheets
   },
 };
 

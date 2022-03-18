@@ -34,7 +34,7 @@ import Income from '@/components/Income.vue';
 import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
-import { setBudgetGroups } from '@/api/budgets';
+import { setBudgetSheets } from '@/api/budgets';
 import { IBudget, IBudgetGroup, IBudgetSheet } from '../../../types/Budget';
 
 interface IData {
@@ -56,6 +56,9 @@ export default Vue.extend({
     budgetSheetSelected(): IBudgetSheet {
       return this.$store.state.budgetStore.budgetSheetSelected;
     },
+    budgetSheets(): IBudgetSheet[] {
+      return this.$store.state.budgetStore.budgetSheets;
+    },
     budgetAllocated(): number {
       // eslint-disable-next-line max-len
       return this.budgetGroups.reduce((totalSum: number, budgetGroup: IBudgetGroup) => totalSum + budgetGroup.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0), 0);
@@ -65,9 +68,7 @@ export default Vue.extend({
     },
   },
   mounted(): void {
-    this.$store.dispatch('loadBudgetSheets');
-
-    if (!this.isSignedIn) {
+    if (!this.isSignedIn()) {
       this.restoreFromLocalStorage();
     }
   },
@@ -77,6 +78,16 @@ export default Vue.extend({
         this.budgetGroups = budgetSheet.budgetGroups;
       },
       immediate: true,
+      deep: true,
+    },
+    budgetSheets: {
+      handler(budgetSheets: IBudgetSheet[]) {
+        if (this.isSignedIn()) {
+          setBudgetSheets(budgetSheets);
+        } else {
+          localStorage.setItem('budgetSheets', JSON.stringify(this.budgetSheets));
+        }
+      },
       deep: true,
     },
     budgetGroups: {
@@ -101,15 +112,12 @@ export default Vue.extend({
     },
     storeBudgetGroups() {
       this.$store.dispatch('setBudgetGroups', this.budgetGroups);
-
-      if (this.isSignedIn()) {
-        setBudgetGroups(this.budgetGroups);
-      } else {
-        localStorage.setItem('budgetGroups', JSON.stringify(this.budgetGroups));
-      }
     },
     restoreFromLocalStorage() {
-      this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '[]') || [];
+      const budgetSheets = JSON.parse(localStorage.getItem('budgetSheets') || '[]') || [];
+
+      this.$store.dispatch('setBudgetSheets', budgetSheets);
+
       this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
     },
   },

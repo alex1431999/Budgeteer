@@ -1,13 +1,13 @@
 import { Request } from 'express';
 import app from '../app';
-import { IBudgetGroup } from '../../types/Budget';
-import { setBudgetGroups } from '../database/queries/budgetGroups';
+import { IBudgetSheet } from '../../types/Budget';
+import { setBudgetSheets } from '../database/queries/budgetSheets';
 
-app.post('/budgetGroups', (req: Request<{}, {}, { budgetGroups: IBudgetGroup[] }>, res) => {
-  const { budgetGroups } = req.body;
+app.post('/budgetSheets', (req: Request<{}, {}, { budgetSheets: IBudgetSheet[] }>, res) => {
+  const { budgetSheets } = req.body;
   const { userId } = req.session;
 
-  setBudgetGroups(userId, budgetGroups)
+  setBudgetSheets(userId, budgetSheets)
     .then(() => res.sendStatus(200))
-    .catch(() => res.sendStatus(500));
+    .catch((error) => res.status(500).json(error));
 });
