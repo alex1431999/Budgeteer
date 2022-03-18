@@ -67,8 +67,14 @@ export const actions = {
     commit('addBudgetSheet', budgetSheet);
     return true;
   },
-  deleteBudgetSheet({ commit }: IActionParams, budgetSheet: IBudgetSheet): void {
+  deleteBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): void {
+    // Delete budget sheet
     commit('deleteBudgetSheet', budgetSheet);
+
+    // Make sure that a delted budget is not selected
+    if (budgetSheet.name === state.budgetSheetSelected.name) {
+      commit('setBudgetSheetSelected', state.budgetSheets[0]);
+    }
   },
   setBudgetSheetSelected({ commit }: IActionParams, budgetSheet: IBudgetSheet): void {
     commit('setBudgetSheetSelected', budgetSheet);
