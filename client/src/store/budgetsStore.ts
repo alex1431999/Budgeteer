@@ -41,6 +41,18 @@ export const mutations = {
   setBudgetSheetSelected(state: IState, budgetSheet: IBudgetSheet): void {
     state.budgetSheetSelected = budgetSheet;
   },
+  setBudgetSheetName(
+    state: IState,
+    { budgetSheet, name }: { budgetSheet: IBudgetSheet, name: string },
+  ): void {
+    const index = state.budgetSheets.findIndex(
+      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
+    );
+
+    if (index !== -1) {
+      state.budgetSheets[index].name = name;
+    }
+  },
 };
 
 export const actions = {
@@ -54,6 +66,18 @@ export const actions = {
     // Add sheet
     commit('addBudgetSheet', budgetSheet);
     return true;
+  },
+  deleteBudgetSheet({ commit }: IActionParams, budgetSheet: IBudgetSheet): void {
+    commit('deleteBudgetSheet', budgetSheet);
+  },
+  setBudgetSheetSelected({ commit }: IActionParams, budgetSheet: IBudgetSheet): void {
+    commit('setBudgetSheetSelected', budgetSheet);
+  },
+  setBudgetSheetName(
+    { commit }: IActionParams,
+    { budgetSheet, name }: { budgetSheet: IBudgetSheet, name: string },
+  ): void {
+    commit('setBudgetSheetName', { budgetSheet, name });
   },
   loadBudgetSheets({ commit }: IActionParams): void {
     // TODO add step that loads budget sheets from api

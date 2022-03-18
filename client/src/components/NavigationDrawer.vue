@@ -13,10 +13,44 @@
           active-class="light-blue--text text--accent-4"
         >
           <v-list-item
-            v-for="budgetSheet in budgetSheets"
-            :key="budgetSheet.name"
+            v-for="budgetSheetDisplayed in budgetSheetsDisplayed"
+            :key="budgetSheetDisplayed.data.name"
+            @click="() => setBudgetSheetSelected(budgetSheetDisplayed)"
           >
-            <v-list-item-title>{{ budgetSheet.name }}</v-list-item-title>
+            <!-- Edit sheet name button -->
+            <v-list-item-icon>
+              <v-btn
+                x-small
+                fab
+                @click="budgetSheetDisplayed.isEditMode = true"
+              >
+                <v-icon color="blue">mdi-pencil</v-icon>
+              </v-btn>
+            </v-list-item-icon>
+
+            <!-- Sheet name -->
+            <v-list-item-title>
+              <v-text-field
+                dense
+                hide-details
+                v-model="budgetSheetDisplayed.nameEdited"
+                :disabled="!budgetSheetDisplayed.isEditMode"
+                @blur="() => onSheetNameEdit(budgetSheetDisplayed)"
+                @keyup.enter="() => onSheetNameEdit(budgetSheetDisplayed)"
+              />
+            </v-list-item-title>
+
+            <v-list-item-action>
+              <!-- Delete sheet button -->
+              <v-btn
+                x-small
+                fab
+                @click="() => deleteSheet(budgetSheetDisplayed.data)"
+              >
+                <v-icon color="red">mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
+
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -37,7 +71,14 @@
 import Vue from 'vue';
 import { IBudgetSheet } from '../../../types/Budget';
 
+interface IBudgetSheetDisplayed {
+  data: IBudgetSheet,
+  isEditMode: boolean,
+  nameEdited: string,
+}
+
 interface IData {
+  budgetSheetsDisplayed: IBudgetSheetDisplayed[],
   drawer: boolean;
   budgetSheetSelected: IBudgetSheet | null;
 }
@@ -45,14 +86,26 @@ interface IData {
 export default Vue.extend({
   data(): IData {
     return {
+      budgetSheetsDisplayed: [],
       drawer: false,
       budgetSheetSelected: null,
     };
   },
   computed: {
-    budgetSheets(): IBudgetSheet[] {
+    budgetSheetsInStore(): IBudgetSheet[] {
       return this.$store.state.budgetStore.budgetSheets;
     },
+  },
+  watch: {
+    budgetSheetsInStore: {
+      handler() {
+        this.syncBudgetSheets();
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.syncBudgetSheets();
   },
   methods: {
     addSheet(): void {
@@ -63,8 +116,39 @@ export default Vue.extend({
 
       this.$store.dispatch('addBudgetSheet', sheet);
     },
+    deleteSheet(budgetSheet: IBudgetSheet): void {
+      this.$store.dispatch('deleteBudgetSheet', budgetSheet);
+    },
+    onSheetNameEdit(budgetSheetDisplayed: IBudgetSheetDisplayed) {
+      // Disable edit mode
+      const sheet = this.budgetSheetsDisplayed.find(
+        ({ data }) => data.name === budgetSheetDisplayed.data.name,
+      );
+
+      if (sheet) {
+        sheet.isEditMode = false;
+      }
+
+      // Save updated name to store
+      const { data, nameEdited } = budgetSheetDisplayed;
+      this.$store.dispatch('setBudgetSheetName', { budgetSheet: data, name: nameEdited });
+    },
+    setBudgetSheetSelected(budgetSheetDisplayed: IBudgetSheetDisplayed): boolean {
+      if (budgetSheetDisplayed.isEditMode) {
+        return false;
+      }
+
+      this.$store.dispatch('setBudgetSheetSelected', budgetSheetDisplayed.data);
+
+      return true;
+    },
+    syncBudgetSheets() {
+      this.budgetSheetsDisplayed = this.budgetSheetsInStore.map((budgetSheet: IBudgetSheet) => (
+        { data: budgetSheet, isEditMode: false, nameEdited: budgetSheet.name }
+      ));
+    },
     pickAvailableSheetName() {
-      const budgetSheetNames = this.budgetSheets.map(({ name }) => name);
+      const budgetSheetNames = this.budgetSheetsInStore.map(({ name }) => name);
       let name = null;
       let counter = 1;
       while (name === null) {
@@ -83,5 +167,5 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
