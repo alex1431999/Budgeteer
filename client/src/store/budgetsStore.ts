@@ -67,7 +67,11 @@ export const actions = {
     commit('addBudgetSheet', budgetSheet);
     return true;
   },
-  deleteBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): void {
+  deleteBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): boolean {
+    if (state.budgetSheets.length <= 1) {
+      return false;
+    }
+
     // Delete budget sheet
     commit('deleteBudgetSheet', budgetSheet);
 
@@ -75,6 +79,8 @@ export const actions = {
     if (budgetSheet.name === state.budgetSheetSelected.name) {
       commit('setBudgetSheetSelected', state.budgetSheets[0]);
     }
+
+    return true;
   },
   setBudgetSheetSelected({ commit }: IActionParams, budgetSheet: IBudgetSheet): void {
     commit('setBudgetSheetSelected', budgetSheet);
