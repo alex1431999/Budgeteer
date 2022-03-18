@@ -70,11 +70,6 @@ export default Vue.extend({
       return this.$store.state.authStore.isSignedIn;
     },
   },
-  mounted(): void {
-    if (!this.isSignedIn) {
-      this.restoreFromLocalStorage();
-    }
-  },
   watch: {
     async isSignedIn(isSignedIn: boolean) {
       if (isSignedIn) {
@@ -94,8 +89,6 @@ export default Vue.extend({
       handler(budgetSheets: IBudgetSheet[]) {
         if (this.isSignedIn) {
           setBudgetSheets(budgetSheets);
-        } else {
-          localStorage.setItem('budgetSheets', JSON.stringify(this.budgetSheets));
         }
       },
       deep: true,
@@ -122,11 +115,6 @@ export default Vue.extend({
     },
     storeIncome() {
       this.$store.dispatch('setIncome', this.income);
-    },
-    restoreFromLocalStorage() {
-      const budgetSheets = JSON.parse(localStorage.getItem('budgetSheets') || '[]') || [];
-
-      this.$store.dispatch('setBudgetSheets', budgetSheets);
     },
   },
 });
