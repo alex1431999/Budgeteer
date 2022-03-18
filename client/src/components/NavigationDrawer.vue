@@ -45,6 +45,7 @@
               <v-btn
                 x-small
                 fab
+                :disabled="budgetSheetsInStore.length <= 1"
                 @click="() => deleteSheet(budgetSheetDisplayed.data)"
               >
                 <v-icon color="red">mdi-delete</v-icon>
