@@ -7,11 +7,16 @@ interface IState {
   budgetSheetSelected: IBudgetSheet,
 }
 
+interface IActionParams {
+  commit: Commit,
+  state: IState,
+}
+
 /**
  * Default budget sheet which is loaded if the user doesn't have a sheet yet
  */
 const budgetSheetDefault: IBudgetSheet = {
-  name: 'Sheet 1',
+  name: 'New Sheet',
   budgetGroups: [],
 };
 
@@ -39,7 +44,18 @@ export const mutations = {
 };
 
 export const actions = {
-  loadBudgetSheets({ commit }: { commit: Commit }): void {
+  addBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): boolean {
+    const sheetExists = state.budgetSheets.find(({ name }) => name === budgetSheet.name);
+
+    if (sheetExists) {
+      return false;
+    }
+
+    // Add sheet
+    commit('addBudgetSheet', budgetSheet);
+    return true;
+  },
+  loadBudgetSheets({ commit }: IActionParams): void {
     // TODO add step that loads budget sheets from api
     const budgetSheets: IBudgetSheet[] = [];
 
@@ -50,6 +66,9 @@ export const actions = {
     if (budgetSheets.length === 0) {
       commit('addBudgetSheet', budgetSheetDefault);
     }
+  },
+  saveBudgetSheets(): void {
+    // TODO: send save request to store the budget sheets
   },
 };
 

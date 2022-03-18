@@ -5,6 +5,8 @@
 
     <!-- Drawer -->
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+
+      <!-- Existing Sheets -->
       <v-list nav dense>
         <v-list-item-group
           v-model="budgetSheetSelected"
@@ -18,6 +20,15 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+
+      <!-- Add new sheet -->
+        <v-btn
+          small
+          fab
+          @click="addSheet"
+        >
+          <v-icon color="blue">mdi-plus</v-icon>
+        </v-btn>
     </v-navigation-drawer>
   </div>
 </template>
@@ -41,6 +52,32 @@ export default Vue.extend({
   computed: {
     budgetSheets(): IBudgetSheet[] {
       return this.$store.state.budgetStore.budgetSheets;
+    },
+  },
+  methods: {
+    addSheet(): void {
+      const sheet: IBudgetSheet = {
+        name: this.pickAvailableSheetName(),
+        budgetGroups: [],
+      };
+
+      this.$store.dispatch('addBudgetSheet', sheet);
+    },
+    pickAvailableSheetName() {
+      const budgetSheetNames = this.budgetSheets.map(({ name }) => name);
+      let name = null;
+      let counter = 1;
+      while (name === null) {
+        const potentialName = `New Sheet (${counter})`;
+
+        if (!budgetSheetNames.includes(potentialName)) {
+          name = potentialName;
+        } else {
+          counter += 1;
+        }
+      }
+
+      return name;
     },
   },
 });
