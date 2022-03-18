@@ -25,6 +25,14 @@ const getInitialState = (): IState => ({
   budgetSheetSelected: budgetSheetDefault,
 });
 
+export const getters = {
+  getIndexOfBudgetSheet(state: IState, budgetSheet: IBudgetSheet): number {
+    return state.budgetSheets.findIndex(
+      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
+    );
+  },
+};
+
 export const mutations = {
   setBudgetSheets(state: IState, budgetSheets: IBudgetSheet[]): void {
     state.budgetSheets = budgetSheets;
@@ -33,9 +41,8 @@ export const mutations = {
     state.budgetSheets.push(budgetSheet);
   },
   deleteBudgetSheet(state: IState, budgetSheet: IBudgetSheet): void {
-    const index = state.budgetSheets.findIndex(
-      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
-    );
+    const index = getters.getIndexOfBudgetSheet(state, budgetSheet);
+
     state.budgetSheets.splice(index, 1);
   },
   setBudgetSheetSelected(state: IState, budgetSheet: IBudgetSheet): void {
@@ -45,9 +52,7 @@ export const mutations = {
     state: IState,
     { budgetSheet, name }: { budgetSheet: IBudgetSheet, name: string },
   ): void {
-    const index = state.budgetSheets.findIndex(
-      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
-    );
+    const index = getters.getIndexOfBudgetSheet(state, budgetSheet);
 
     if (index !== -1) {
       state.budgetSheets[index].name = name;
@@ -57,9 +62,7 @@ export const mutations = {
     state: IState,
     { budgetSheet, budgetGroups }: { budgetSheet: IBudgetSheet, budgetGroups: IBudgetGroup[] },
   ): void {
-    const index = state.budgetSheets.findIndex(
-      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
-    );
+    const index = getters.getIndexOfBudgetSheet(state, budgetSheet);
 
     if (index !== -1) {
       state.budgetSheets[index].budgetGroups = budgetGroups;
