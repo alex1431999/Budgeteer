@@ -11,5 +11,6 @@ export interface IBudgetGroup {
 
 export interface IBudgetSheet {
   name: string,
+  income: number | null,
   budgetGroups: IBudgetGroup[],
 }

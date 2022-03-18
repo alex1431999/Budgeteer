@@ -85,6 +85,7 @@ export default Vue.extend({
     budgetSheetSelected: {
       handler(budgetSheet: IBudgetSheet) {
         this.budgetGroups = budgetSheet.budgetGroups;
+        this.income = budgetSheet.income;
       },
       immediate: true,
       deep: true,
@@ -105,8 +106,8 @@ export default Vue.extend({
       },
       deep: true,
     },
-    income(value: number): void {
-      localStorage.setItem('income', value.toString());
+    income(): void {
+      this.storeIncome();
     },
   },
   methods: {
@@ -119,12 +120,13 @@ export default Vue.extend({
     storeBudgetGroups() {
       this.$store.dispatch('setBudgetGroups', this.budgetGroups);
     },
+    storeIncome() {
+      this.$store.dispatch('setIncome', this.income);
+    },
     restoreFromLocalStorage() {
       const budgetSheets = JSON.parse(localStorage.getItem('budgetSheets') || '[]') || [];
 
       this.$store.dispatch('setBudgetSheets', budgetSheets);
-
-      this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
     },
   },
 });

@@ -18,6 +18,7 @@ interface IActionParams {
 const budgetSheetDefault: IBudgetSheet = {
   name: 'New Sheet',
   budgetGroups: [],
+  income: null,
 };
 
 const getInitialState = (): IState => ({
@@ -66,6 +67,16 @@ export const mutations = {
 
     if (index !== -1) {
       state.budgetSheets[index].budgetGroups = budgetGroups;
+    }
+  },
+  setIncome(
+    state: IState,
+    { budgetSheet, income }: { budgetSheet: IBudgetSheet, income: number | null },
+  ): void {
+    const index = getters.getIndexOfBudgetSheet(state, budgetSheet);
+
+    if (index !== -1) {
+      state.budgetSheets[index].income = income;
     }
   },
 };
@@ -120,6 +131,9 @@ export const actions = {
   },
   setBudgetGroups({ commit, state }: IActionParams, budgetGroups: IBudgetGroup[]): void {
     commit('setBudgetGroups', { budgetSheet: state.budgetSheetSelected, budgetGroups });
+  },
+  setIncome({ commit, state }: IActionParams, income: number | null): void {
+    commit('setIncome', { budgetSheet: state.budgetSheetSelected, income });
   },
 };
 

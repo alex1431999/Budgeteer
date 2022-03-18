@@ -113,6 +113,7 @@ export default Vue.extend({
       const sheet: IBudgetSheet = {
         name: this.pickAvailableSheetName(),
         budgetGroups: [],
+        income: null,
       };
 
       this.$store.dispatch('addBudgetSheet', sheet);
