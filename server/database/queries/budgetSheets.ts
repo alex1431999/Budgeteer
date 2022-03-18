@@ -26,8 +26,6 @@ export const setBudgetSheets = async (
 export const getBudgetSheets = async (userId: string): Promise<IBudgetSheet[]> => {
   const collection = await getBudgetSheetsCollection();
 
-  console.log(userId);
-
   const query = { userId };
 
   const result = await collection.findOne(query);
