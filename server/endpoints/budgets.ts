@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import app from '../app';
-import { IBudgetSheet } from '../../types/Budget';
+import { IBudgetSheet } from '../types/Budget';
 import { setBudgetSheets, getBudgetSheets } from '../database/queries/budgetSheets';
 
 app.post('/budgetSheets', (req: Request<{}, {}, { budgetSheets: IBudgetSheet[] }>, res) => {

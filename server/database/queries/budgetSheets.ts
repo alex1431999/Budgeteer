@@ -1,5 +1,5 @@
 import { getDb } from '../index';
-import { IBudgetSheet } from '../../../types/budget';
+import { IBudgetSheet } from '../../types/Budget';
 
 const getBudgetSheetsCollection = async () => {
   const db = await getDb();

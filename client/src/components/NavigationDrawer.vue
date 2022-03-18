@@ -70,7 +70,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { IBudgetSheet } from '../../../types/Budget';
+import { IBudgetSheet } from '../../types/Budget';
 
 interface IBudgetSheetDisplayed {
   data: IBudgetSheet,
