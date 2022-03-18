@@ -1,6 +1,6 @@
 import { Commit } from 'vuex';
 
-import { IBudgetSheet } from '../../../types/Budget';
+import { IBudgetSheet, IBudgetGroup } from '../../../types/Budget';
 
 interface IState {
   budgetSheets: IBudgetSheet[],
@@ -17,7 +17,7 @@ interface IActionParams {
  */
 const budgetSheetDefault: IBudgetSheet = {
   name: 'New Sheet',
-  budgetGroups: [],
+  budgetGroups: [{ name: 'test', budgets: [], icon: 'mdi-bank' }],
 };
 
 const getInitialState = (): IState => ({
@@ -51,6 +51,18 @@ export const mutations = {
 
     if (index !== -1) {
       state.budgetSheets[index].name = name;
+    }
+  },
+  setBudgetGroups(
+    state: IState,
+    { budgetSheet, budgetGroups }: { budgetSheet: IBudgetSheet, budgetGroups: IBudgetGroup[] },
+  ): void {
+    const index = state.budgetSheets.findIndex(
+      (budgetSheetCurrent) => budgetSheetCurrent.name === budgetSheet.name,
+    );
+
+    if (index !== -1) {
+      state.budgetSheets[index].budgetGroups = budgetGroups;
     }
   },
 };
@@ -91,7 +103,10 @@ export const actions = {
   ): void {
     commit('setBudgetSheetName', { budgetSheet, name });
   },
-  loadBudgetSheets({ commit }: IActionParams): void {
+  setBudgetGroups({ commit, state }: IActionParams, budgetGroups: IBudgetGroup[]): void {
+    commit('setBudgetGroups', { budgetSheet: state.budgetSheetSelected, budgetGroups });
+  },
+  loadBudgetSheets({ commit, state }: IActionParams): void {
     // TODO add step that loads budget sheets from api
     const budgetSheets: IBudgetSheet[] = [];
 
@@ -102,6 +117,9 @@ export const actions = {
     if (budgetSheets.length === 0) {
       commit('addBudgetSheet', budgetSheetDefault);
     }
+
+    // Select the first sheet as a default
+    commit('setBudgetSheetSelected', state.budgetSheets[0]);
   },
   saveBudgetSheets(): void {
     // TODO: send save request to store the budget sheets

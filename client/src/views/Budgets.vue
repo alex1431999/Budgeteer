@@ -35,7 +35,7 @@ import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 import { setBudgetGroups } from '@/api/budgets';
-import { IBudget, IBudgetGroup } from '../../../types/Budget';
+import { IBudget, IBudgetGroup, IBudgetSheet } from '../../../types/Budget';
 
 interface IData {
   income: number | null;
@@ -53,6 +53,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    budgetSheetSelected(): IBudgetSheet {
+      return this.$store.state.budgetStore.budgetSheetSelected;
+    },
     budgetAllocated(): number {
       // eslint-disable-next-line max-len
       return this.budgetGroups.reduce((totalSum: number, budgetGroup: IBudgetGroup) => totalSum + budgetGroup.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0), 0);
@@ -64,10 +67,18 @@ export default Vue.extend({
   mounted(): void {
     this.$store.dispatch('loadBudgetSheets');
 
-    this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '[]') || [];
-    this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
+    if (!this.isSignedIn) {
+      this.restoreFromLocalStorage();
+    }
   },
   watch: {
+    budgetSheetSelected: {
+      handler(budgetSheet: IBudgetSheet) {
+        this.budgetGroups = budgetSheet.budgetGroups;
+      },
+      immediate: true,
+      deep: true,
+    },
     budgetGroups: {
       handler() {
         this.storeBudgetGroups();
@@ -89,11 +100,17 @@ export default Vue.extend({
       return window.gapi?.auth2?.getAuthInstance().isSignedIn.get();
     },
     storeBudgetGroups() {
+      this.$store.dispatch('setBudgetGroups', this.budgetGroups);
+
       if (this.isSignedIn()) {
         setBudgetGroups(this.budgetGroups);
       } else {
         localStorage.setItem('budgetGroups', JSON.stringify(this.budgetGroups));
       }
+    },
+    restoreFromLocalStorage() {
+      this.budgetGroups = JSON.parse(localStorage.getItem('budgetGroups') || '[]') || [];
+      this.income = parseInt(localStorage.getItem('income') || '', 10) || null;
     },
   },
 });
