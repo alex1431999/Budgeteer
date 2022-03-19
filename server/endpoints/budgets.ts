@@ -9,7 +9,10 @@ app.post('/budgetSheets', (req: Request<{}, {}, { budgetSheets: IBudgetSheet[] }
 
   setBudgetSheets(userId, budgetSheets)
     .then(() => res.sendStatus(200))
-    .catch((error) => res.status(500).json(error));
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
 });
 
 app.get('/budgetSheets', (req, res) => {
@@ -17,5 +20,8 @@ app.get('/budgetSheets', (req, res) => {
 
   getBudgetSheets(userId)
     .then((budgetSheets: IBudgetSheet[]) => res.status(200).json(budgetSheets))
-    .catch((error) => res.status(500).json(error));
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
 });
