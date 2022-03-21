@@ -11,7 +11,7 @@ export const setBudgetSheets = async (
   budgetSheets: IBudgetSheet[],
 ): Promise<void> => {
   if (!userId || !budgetSheets) {
-    return Promise.reject();
+    return Promise.reject(new Error(`invalid parameters: userId: ${userId}, budgetSheets: ${budgetSheets}`));
   }
 
   const collection = await getBudgetSheetsCollection();
