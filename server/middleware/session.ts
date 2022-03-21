@@ -17,10 +17,10 @@ const options = {
   secret: process.env.SESSION_SECRET,
   store: MongoStore.create(mongoStoreOptions),
   saveUninitialized: true,
-  cookie: { httpOnly: true, maxAge: thirdyDays, secure: process.env.NODE_ENV === 'production' },
+  cookie: { httpOnly: false, maxAge: thirdyDays, secure: process.env.NODE_ENV === 'production' },
   resave: false,
 };
 
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 app.use(sessions(options));
