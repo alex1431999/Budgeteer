@@ -21,7 +21,8 @@ app.post('/sign-in', async (req: Request<{}, {}, { token: string }>, res) => {
 
     req.session.userId = userId;
 
-    return req.session.save(() => res.json(req.session));
+    req.session.save(() => res.json(req.session));
+  } else {
+    res.sendStatus(401);
   }
-  return res.sendStatus(401);
 });
