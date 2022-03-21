@@ -12,7 +12,7 @@ const options = {
   secret: process.env.SESSION_SECRET,
   saveUninitialized: true,
   cookie: { maxAge: thirdyDays, secure: process.env.NODE_ENV === 'production' },
-  resave: true,
+  resave: false,
 };
 
 app.use(sessions(options));
