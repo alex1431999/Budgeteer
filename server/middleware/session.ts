@@ -15,6 +15,4 @@ const options = {
   resave: false,
 };
 
-console.log(options);
-
 app.use(sessions(options));
