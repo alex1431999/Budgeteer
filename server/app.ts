@@ -1,7 +1,7 @@
 import express from 'express';
 
 const app = express();
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 const port = process.env.PORT || 3000;
 
