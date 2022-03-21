@@ -21,4 +21,6 @@ const options = {
   resave: false,
 };
 
+app.set('trust proxy', true);
+
 app.use(sessions(options));
