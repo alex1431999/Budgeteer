@@ -30,5 +30,5 @@ export const getBudgetSheets = async (userId: string): Promise<IBudgetSheet[]> =
 
   const result = await collection.findOne(query);
 
-  return result.budgetSheets;
+  return result?.budgetSheets || [];
 };
