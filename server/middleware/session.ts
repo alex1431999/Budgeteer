@@ -16,7 +16,7 @@ const mongoStoreOptions = {
 const options = {
   secret: process.env.SESSION_SECRET,
   store: MongoStore.create(mongoStoreOptions),
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { httpOnly: false, maxAge: thirdyDays, secure: process.env.NODE_ENV === 'production' },
   resave: false,
 };
