@@ -1,5 +1,14 @@
 <template>
-  <div class="budgets">
+  <!-- Loading spinner -->
+  <div v-if="isLoading">
+    <v-progress-circular
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+  </div>
+
+  <!-- Content -->
+  <div v-else class="budgets">
     <!-- Income -->
     <v-sheet class="budgets--sheet--income" rounded="xl">
       <income v-model="income"/>
@@ -40,6 +49,7 @@ import { IBudget, IBudgetGroup, IBudgetSheet } from '../../types/Budget';
 interface IData {
   income: number | null;
   budgetGroups: IBudgetGroup[],
+  isLoading: boolean,
 }
 
 export default Vue.extend({
@@ -50,6 +60,7 @@ export default Vue.extend({
     return {
       income: null,
       budgetGroups: [],
+      isLoading: false,
     };
   },
   computed: {
@@ -73,8 +84,10 @@ export default Vue.extend({
   watch: {
     async isSignedIn(isSignedIn: boolean) {
       if (isSignedIn) {
+        this.isLoading = true;
         const budgetSheets = (await getBudgetSheets()).data;
         this.$store.dispatch('setBudgetSheets', budgetSheets);
+        this.isLoading = false;
       }
     },
     budgetSheetSelected: {
