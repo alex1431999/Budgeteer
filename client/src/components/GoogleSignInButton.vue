@@ -43,7 +43,7 @@ export default Vue.extend({
     renderButton() {
       window.gapi.signin2.render('sign-in-button', {
         scope: 'profile email',
-        longtitle: false,
+        longtitle: true,
         theme: 'dark',
         onsuccess: this.onSignIn,
       });

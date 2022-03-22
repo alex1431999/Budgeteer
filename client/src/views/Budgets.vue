@@ -82,13 +82,16 @@ export default Vue.extend({
     },
   },
   watch: {
-    async isSignedIn(isSignedIn: boolean) {
-      if (isSignedIn) {
-        this.isLoading = true;
-        const budgetSheets = (await getBudgetSheets()).data;
-        this.$store.dispatch('setBudgetSheets', budgetSheets);
-        this.isLoading = false;
-      }
+    isSignedIn: {
+      async handler(isSignedIn: boolean) {
+        if (isSignedIn) {
+          this.isLoading = true;
+          const budgetSheets = (await getBudgetSheets()).data;
+          this.$store.dispatch('setBudgetSheets', budgetSheets);
+          this.isLoading = false;
+        }
+      },
+      immediate: true,
     },
     budgetSheetSelected: {
       handler(budgetSheet: IBudgetSheet) {

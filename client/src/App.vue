@@ -1,10 +1,17 @@
 <template>
   <v-app>
     <div id="app">
+
+      <!-- Content -->
+      <div v-if="isSignedIn" class="content">
       <div id="nav">
         <Header />
       </div>
-      <router-view/>
+      <router-view  />
+      </div>
+
+      <!-- Sign In mask -->
+      <sign-in v-else />
     </div>
   </v-app>
 </template>
@@ -12,10 +19,16 @@
 <script>
 import Vue from 'vue';
 import Header from './components/Header.vue';
+import SignIn from './views/SignIn.vue';
 
 export default Vue.extend({
-  components: { Header },
+  components: { Header, SignIn },
   name: 'App',
+  computed: {
+    isSignedIn() {
+      return this.$store.state.authStore.isSignedIn;
+    },
+  },
 });
 
 </script>
