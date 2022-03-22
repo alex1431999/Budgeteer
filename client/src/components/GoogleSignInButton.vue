@@ -1,5 +1,9 @@
 <template>
-  <div class="google-sign-in-button">
+  <div v-if="isLoading">
+    <v-progress-circular indeterminate color="blue">
+    </v-progress-circular>
+  </div>
+  <div v-else class="google-sign-in-button">
     <div v-show="!isSignedIn" id="sign-in-button"></div>
     <v-btn color="blue" v-show="isSignedIn" @click="signOut">Sign out</v-btn>
   </div>
@@ -14,6 +18,7 @@ export default Vue.extend({
   data() {
     return {
       isSignedIn: false,
+      isLoading: false,
     };
   },
   mounted() {
@@ -29,10 +34,15 @@ export default Vue.extend({
       }, 200);
     },
     onSignIn(googleUser: any): void {
-      this.isSignedIn = true;
+      this.isLoading = true;
 
       const token = googleUser.getAuthResponse().id_token;
-      signIn(token).then(() => this.$store.commit('setIsSignedIn', true)).catch(this.signOut);
+
+      signIn(token).then(() => {
+        this.$store.commit('setIsSignedIn', true);
+        this.isLoading = false;
+        this.isSignedIn = true;
+      }).catch(this.signOut);
     },
     async signOut() {
       await window.gapi.auth2.getAuthInstance().signOut();
