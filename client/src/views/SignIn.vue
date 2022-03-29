@@ -1,16 +1,12 @@
 <template>
-  <div class="signIn">
-    <v-layout class="signIn__layout" justify-center align-center>
-      <v-card rounded class="signIn__layout__card">
-        <v-card-title class="signIn__layout__card__title">
-          Sign In
-        </v-card-title>
-        <v-card-text>
-          Sign in using your Google Account.
-        </v-card-text>
-        <v-card-actions>
-           <google-sign-in-button />
-        </v-card-actions>
+  <div class="sign-in">
+    <v-layout class="sign-in__layout" justify-center align-center column>
+      <v-icon class="sign-in__layout__icon" color="blue" x-large>mdi-account</v-icon>
+      <h1 class="sign-in__layout__header">
+          Sign into your account
+      </h1>
+      <v-card rounded class="sign-in__layout__card">
+        <google-sign-in-button />
       </v-card>
     </v-layout>
   </div>
@@ -25,20 +21,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.signIn {
+.sign-in {
   height: 100vh;
 
   &__layout {
     height: 100vh;
 
-    &__card {
-      padding-bottom: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
+    &__header {
+      color: #2196F3;
+      margin-bottom: 20px;
+    }
 
-      &__title {
-        color: #2196F3;
-      }
+    &__icon {
+      margin-bottom: 20px;
+    }
+
+    &__card {
+      padding: 20px;
     }
   }
 }
