@@ -139,7 +139,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .budgets {
   margin: auto;
-  width: 40%;
+  max-width: 800px;
 
   &--sheet {
     &--budget_sheet_menu {
