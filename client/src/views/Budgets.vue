@@ -153,10 +153,7 @@ export default Vue.extend({
     }
 
     &--budgets {
-      padding-top: 50px;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-bottom: 30px;
+      padding: 50px 50px 30px;
       margin-bottom: 10%;
     }
   }
