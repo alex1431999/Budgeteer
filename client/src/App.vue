@@ -7,7 +7,7 @@
       <div id="nav">
         <Header />
       </div>
-      <router-view  />
+      <router-view id="router-view"  />
       </div>
 
       <!-- Sign In mask -->
@@ -47,16 +47,11 @@ export default Vue.extend({
 }
 
 #nav {
-  padding: 30px;
+  padding: 20px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#router-view {
+  margin-top: 90px;
 }
 
 input::-webkit-outer-spin-button,
