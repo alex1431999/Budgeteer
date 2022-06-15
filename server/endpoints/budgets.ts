@@ -17,7 +17,6 @@ app.post('/budgetSheets', (req: Request<{}, {}, { budgetSheets: IBudgetSheet[] }
 
 app.get('/budgetSheets', (req, res) => {
   const { userId } = req.session;
-  console.log(req.session);
 
   getBudgetSheets(userId)
     .then((budgetSheets: IBudgetSheet[]) => res.status(200).json(budgetSheets))
