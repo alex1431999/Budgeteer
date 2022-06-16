@@ -44,7 +44,7 @@ import BudgetGroup from '@/components/BudgetGroup.vue';
 import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 import { setBudgetSheets, getBudgetSheets } from '@/api/budgets';
-import { IBudget, IBudgetGroup, IBudgetSheet } from '../../types/Budget';
+import { IBudget, IBudgetGroup, IBudgetSheet } from '@/types/Budget';
 
 interface IData {
   income: number | null;
