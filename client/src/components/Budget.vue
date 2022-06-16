@@ -62,7 +62,7 @@ export default Vue.extend({
       default: '',
     },
   },
-  methods: {
+  computed: {
     isMobile(): boolean {
       return isMobile();
     },
