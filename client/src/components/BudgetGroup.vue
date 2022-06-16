@@ -7,7 +7,7 @@
             <v-row>
 
               <!-- Budget name -->
-              <v-col cols="3">
+              <v-col>
                 <span class="budget-group__header">
                   <v-text-field
                     solo
@@ -21,7 +21,7 @@
               </v-col>
 
               <!-- Budgets Allocated -->
-              <v-col>
+              <v-col v-if="!isMobile" cols="9">
                 <v-slider
                   readonly
                   thumb-label="always"
@@ -78,6 +78,7 @@ import Vue, { PropType } from 'vue';
 import Budget from '@/components/Budget.vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
+import { isMobile } from '@/utils/mobile';
 import IconSelector from './IconSelector.vue';
 
 interface IData {
@@ -113,6 +114,9 @@ export default Vue.extend({
     },
     showPanel(): boolean {
       return this.showPanelModel === 0;
+    },
+    isMobile(): boolean {
+      return isMobile();
     },
   },
   methods: {

@@ -10,12 +10,12 @@
   <!-- Content -->
   <div v-else class="budgets">
     <!-- Income -->
-    <v-sheet class="budgets--sheet--income" rounded="xl">
+    <v-sheet class="budgets--sheet--income" :rounded="isMobile ? '' : 'xl'">
       <income v-model="income"/>
     </v-sheet>
 
     <!-- Budgets -->
-    <v-sheet class="budgets--sheet--budgets" rounded="xl">
+    <v-sheet class="budgets--sheet--budgets" :rounded="isMobile ? '' : 'xl'">
       <!-- Excess -->
       <excess :value="budgetRemaining"/>
 
@@ -45,6 +45,7 @@ import Excess from '@/components/Excess.vue';
 import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 import { setBudgetSheets, getBudgetSheets } from '@/api/budgets';
 import { IBudget, IBudgetGroup, IBudgetSheet } from '@/types/Budget';
+import { isMobile } from '@/utils/mobile';
 
 interface IData {
   income: number | null;
@@ -64,6 +65,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    isMobile(): boolean {
+      return isMobile();
+    },
     budgetSheetSelected(): IBudgetSheet {
       return this.$store.state.budgetStore.budgetSheetSelected;
     },

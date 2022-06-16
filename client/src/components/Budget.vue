@@ -4,7 +4,7 @@
       <v-row>
 
         <!-- Budget Name -->
-        <v-col cols="7">
+        <v-col :cols="isMobile ? 12 : 7">
           <v-text-field
             placeholder="Name"
             hide-details
@@ -16,7 +16,7 @@
         </v-col>
 
         <!-- Budget Allocation -->
-        <v-col cols="4">
+        <v-col :cols="isMobile ? 10 : 4">
           <v-text-field
             outlined
             hide-details
@@ -38,10 +38,17 @@
     </v-container>
 
     <v-spacer />
+
+    <!-- Create some margin to the bottom -->
+    <span v-if="isMobile">
+      <br />
+      <br />
+    </span>
   </div>
 </template>
 
 <script lang="ts">
+import { isMobile } from '@/utils/mobile';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -53,6 +60,11 @@ export default Vue.extend({
     name: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    isMobile(): boolean {
+      return isMobile();
     },
   },
 });
