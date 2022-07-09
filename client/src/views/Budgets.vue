@@ -31,6 +31,7 @@
       <!-- Add budget group button -->
       <add-budget-group-dialog
         class="budgets__add-budget-group-button"
+        :no-groups-yet="budgetGroups.length === 0"
         @on-submit="addBudgetGroup"
       />
     </v-sheet>
