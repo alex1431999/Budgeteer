@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./client:/usr/src/client
+    depends_on:
+      - server
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/usr/src/server
