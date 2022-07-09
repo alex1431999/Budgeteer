@@ -103,6 +103,10 @@ export const actions = {
 
     // Add sheet
     commit('addBudgetSheet', budgetSheet);
+
+    // Select the new sheet
+    commit('setBudgetSheetSelected', budgetSheet);
+
     return true;
   },
   deleteBudgetSheet({ commit, state }: IActionParams, budgetSheet: IBudgetSheet): boolean {
