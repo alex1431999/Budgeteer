@@ -31,6 +31,7 @@
             <!-- Sheet name -->
             <v-list-item-title>
               <v-text-field
+                class="navigation-drawer__sheet-name"
                 dense
                 hide-details
                 v-model="budgetSheetDisplayed.nameEdited"
@@ -170,4 +171,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.navigation-drawer {
+  &__sheet-name {
+    ::v-deep input {
+      text-overflow: ellipsis;
+    }
+  }
+}
 </style>
