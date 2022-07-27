@@ -4,7 +4,7 @@
     <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <!-- Drawer -->
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" absolute temporary width="350">
 
       <!-- Existing Sheets -->
       <v-list nav dense>
@@ -175,6 +175,7 @@ export default Vue.extend({
   &__sheet-name {
     ::v-deep input {
       text-overflow: ellipsis;
+      text-align: center;
     }
   }
 }
