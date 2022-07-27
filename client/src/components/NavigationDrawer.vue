@@ -4,7 +4,7 @@
     <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <!-- Drawer -->
-    <v-navigation-drawer v-model="drawer" absolute temporary width="350">
+    <v-navigation-drawer v-model="drawer" absolute temporary :width="navigatorWidth">
 
       <!-- Existing Sheets -->
       <v-list nav dense>
@@ -72,6 +72,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { IBudgetSheet } from '@/types/Budget';
+import { isMobile } from '@/utils/mobile';
 
 interface IBudgetSheetDisplayed {
   data: IBudgetSheet,
@@ -96,6 +97,9 @@ export default Vue.extend({
   computed: {
     budgetSheetsInStore(): IBudgetSheet[] {
       return this.$store.state.budgetStore.budgetSheets;
+    },
+    navigatorWidth(): number {
+      return isMobile() ? 250 : 350;
     },
   },
   watch: {
