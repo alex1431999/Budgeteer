@@ -1,6 +1,6 @@
 import { Commit } from 'vuex';
 
-import { IBudgetSheet, IBudgetGroup } from '@/types/Budget';
+import { IBudgetSheet, IBudgetGroup } from '@types/types//Budget';
 
 interface IState {
   budgetSheets: IBudgetSheet[],

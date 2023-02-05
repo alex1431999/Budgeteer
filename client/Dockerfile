@@ -9,7 +9,8 @@ RUN apk update && apk upgrade
 RUN apk add git
 
 # copy the app, note .dockerignore
-ADD . /usr/src/client
+ADD ./client /usr/src/client
+ADD ./types /usr/src/types
 RUN yarn install
 
 # Expose the app

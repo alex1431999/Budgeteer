@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
-import { IBudgetGroup } from '@/types/Budget';
+import { IBudgetGroup } from '@types/types//Budget';
 import IconSelector from './IconSelector.vue';
 
 interface IData {
