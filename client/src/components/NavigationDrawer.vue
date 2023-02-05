@@ -71,8 +71,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { IBudgetSheet } from '@/types/Budget';
 import { isMobile } from '@/utils/mobile';
+import { IBudgetSheet } from '@types/types//Budget';
 
 interface IBudgetSheetDisplayed {
   data: IBudgetSheet,

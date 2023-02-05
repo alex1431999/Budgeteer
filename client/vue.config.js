@@ -5,6 +5,12 @@ module.exports = {
     'vuetify',
   ],
   configureWebpack: {
+    resolve: {
+      alias: {
+        '@types': path.resolve(__dirname, '/../types/')
+      },
+      extensions: ['.ts']
+    },
     devServer: {
       proxy: {
         '/api': {
