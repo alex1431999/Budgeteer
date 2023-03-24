@@ -35,7 +35,13 @@
               <!-- Options menu -->
               <v-menu bottom offset-y>
                 <template v-slot:activator="{ on, attrs  }">
-                  <v-btn x-small fab v-bind="attrs" v-on="on">
+                  <v-btn
+                    class="navigation-drawer__menu-button"
+                    x-small
+                    fab
+                    v-bind="attrs"
+                    v-on="on"
+                  >
                     <v-icon color="blue">mdi-dots-vertical</v-icon>
                   </v-btn>
                 </template>
@@ -202,6 +208,10 @@ export default Vue.extend({
       text-overflow: ellipsis;
       text-align: center;
     }
+  }
+
+  &__menu-button {
+    margin-right: 10px;
   }
 }
 </style>
