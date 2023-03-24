@@ -17,16 +17,6 @@
             :key="budgetSheetDisplayed.data.name"
             @click="() => setBudgetSheetSelected(budgetSheetDisplayed)"
           >
-            <!-- Edit sheet name button -->
-            <v-list-item-icon>
-              <v-btn
-                x-small
-                fab
-                @click="budgetSheetDisplayed.isEditMode = true"
-              >
-                <v-icon color="blue">mdi-pencil</v-icon>
-              </v-btn>
-            </v-list-item-icon>
 
             <!-- Sheet name -->
             <v-list-item-title>
@@ -51,6 +41,13 @@
                 </template>
 
                 <v-list>
+                  <!-- Edit sheet button -->
+                  <v-list-item
+                    @click="budgetSheetDisplayed.isEditMode = true"
+                  >
+                    Rename
+                  </v-list-item>
+
                   <!-- Delete sheet button -->
                   <v-list-item
                     :disabled="budgetSheetsInStore.length <= 1"
