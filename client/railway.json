@@ -1,10 +1,11 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "DOCKERFILE",
-    "dockerfilePath": "client/Dockerfile.production"
+    "builder": "nixpacks",
+    "buildCommand": "yarn --cwd ./client build"
   },
   "deploy": {
+    "startCommand": "node ./client server.js",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
