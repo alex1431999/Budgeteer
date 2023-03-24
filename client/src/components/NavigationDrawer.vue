@@ -50,13 +50,21 @@
                   </v-btn>
                 </template>
 
-                <!-- Delete sheet button -->
                 <v-list>
+                  <!-- Delete sheet button -->
                   <v-list-item
                     :disabled="budgetSheetsInStore.length <= 1"
                     @click="() => deleteSheet(budgetSheetDisplayed.data)"
                   >
                     Delete
+                  </v-list-item>
+
+                  <!-- Copy sheet button -->
+                  <v-list-item
+                    :disabled="budgetSheetsInStore.length <= 1"
+                    @click="() => copySheet(budgetSheetDisplayed.data)"
+                  >
+                    Copy
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -70,7 +78,7 @@
         <v-btn
           small
           fab
-          @click="addSheet"
+          @click="addSheet('New Sheet')"
         >
           <v-icon color="blue">mdi-plus</v-icon>
         </v-btn>
@@ -123,9 +131,9 @@ export default Vue.extend({
     this.syncBudgetSheets();
   },
   methods: {
-    addSheet(): void {
+    addSheet(name = 'New Sheet'): void {
       const sheet: IBudgetSheet = {
-        name: this.pickAvailableSheetName(),
+        name: this.pickAvailableSheetName(name),
         budgetGroups: [],
         income: null,
       };
@@ -134,6 +142,13 @@ export default Vue.extend({
     },
     deleteSheet(budgetSheet: IBudgetSheet): void {
       this.$store.dispatch('deleteBudgetSheet', budgetSheet);
+    },
+    copySheet(budgetSheet: IBudgetSheet): void {
+      const budgetSheetCopy: IBudgetSheet = {
+        ...budgetSheet,
+        name: this.pickAvailableSheetName(budgetSheet.name),
+      };
+      this.$store.dispatch('addBudgetSheet', budgetSheetCopy);
     },
     onSheetNameEdit(budgetSheetDisplayed: IBudgetSheetDisplayed) {
       // Disable edit mode
@@ -163,12 +178,12 @@ export default Vue.extend({
         { data: budgetSheet, isEditMode: false, nameEdited: budgetSheet.name }
       ));
     },
-    pickAvailableSheetName() {
+    pickAvailableSheetName(sheetName = 'New Sheet') {
       const budgetSheetNames = this.budgetSheetsInStore.map(({ name }) => name);
       let name = null;
       let counter = 1;
       while (name === null) {
-        const potentialName = `New Sheet (${counter})`;
+        const potentialName = `${sheetName} (${counter})`;
 
         if (!budgetSheetNames.includes(potentialName)) {
           name = potentialName;

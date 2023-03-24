@@ -1,4 +1,4 @@
-import { Commit } from 'vuex';
+import { Commit, Dispatch } from 'vuex';
 
 import { IBudgetSheet, IBudgetGroup } from '@/types/Budget';
 
@@ -9,6 +9,7 @@ interface IState {
 
 interface IActionParams {
   commit: Commit,
+  dispatch: Dispatch,
   state: IState,
 }
 
@@ -117,7 +118,7 @@ export const actions = {
     // Delete budget sheet
     commit('deleteBudgetSheet', budgetSheet);
 
-    // Make sure that a delted budget is not selected
+    // Make sure that a deleted budget is not selected
     if (budgetSheet.name === state.budgetSheetSelected.name) {
       commit('setBudgetSheetSelected', state.budgetSheets[0]);
     }
