@@ -42,15 +42,24 @@
             </v-list-item-title>
 
             <v-list-item-action>
-              <!-- Delete sheet button -->
-              <v-btn
-                x-small
-                fab
-                :disabled="budgetSheetsInStore.length <= 1"
-                @click="() => deleteSheet(budgetSheetDisplayed.data)"
-              >
-                <v-icon color="red">mdi-delete</v-icon>
-              </v-btn>
+              <!-- Options menu -->
+              <v-menu bottom offset-y>
+                <template v-slot:activator="{ on, attrs  }">
+                  <v-btn x-small fab v-bind="attrs" v-on="on">
+                    <v-icon color="blue">mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+
+                <!-- Delete sheet button -->
+                <v-list>
+                  <v-list-item
+                    :disabled="budgetSheetsInStore.length <= 1"
+                    @click="() => deleteSheet(budgetSheetDisplayed.data)"
+                  >
+                    Delete
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </v-list-item-action>
 
           </v-list-item>
