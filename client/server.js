@@ -12,4 +12,4 @@ app.use('/api', proxy(process.env.VUE_APP_API_URL));
 
 const port = process.env.PORT || 8080;
 
-app.listen(port);
+app.listen(port, () => console.log(`Running on port ${port}`));
