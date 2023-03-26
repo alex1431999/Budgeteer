@@ -54,17 +54,17 @@
                     Rename
                   </v-list-item>
 
+                  <!-- Copy sheet button -->
+                  <v-list-item @click="() => copySheet(budgetSheetDisplayed.data)">
+                    Copy
+                  </v-list-item>
+
                   <!-- Delete sheet button -->
                   <v-list-item
                     :disabled="budgetSheetsInStore.length <= 1"
                     @click="() => deleteSheet(budgetSheetDisplayed.data)"
                   >
                     Delete
-                  </v-list-item>
-
-                  <!-- Copy sheet button -->
-                  <v-list-item @click="() => copySheet(budgetSheetDisplayed.data)">
-                    Copy
                   </v-list-item>
                 </v-list>
               </v-menu>
