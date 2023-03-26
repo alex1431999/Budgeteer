@@ -90,6 +90,7 @@
 import Vue from 'vue';
 import { IBudgetSheet } from '@/types/Budget';
 import { isMobile } from '@/utils/mobile';
+import { copy } from '@/utils/copy';
 
 interface IBudgetSheetDisplayed {
   data: IBudgetSheet,
@@ -145,7 +146,7 @@ export default Vue.extend({
     },
     copySheet(budgetSheet: IBudgetSheet): void {
       const budgetSheetCopy: IBudgetSheet = {
-        ...budgetSheet,
+        ...copy(budgetSheet),
         name: this.pickAvailableSheetName(budgetSheet.name),
       };
       this.$store.dispatch('addBudgetSheet', budgetSheetCopy);
