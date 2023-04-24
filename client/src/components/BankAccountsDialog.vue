@@ -1,0 +1,76 @@
+<template>
+  <v-dialog width="500">
+    <!-- Trigger button -->
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn small fab v-bind="attrs" v-on="on">
+        <v-icon color="blue">mdi-bank</v-icon>
+      </v-btn>
+    </template>
+
+    <!-- Dialog -->
+    <v-card>
+      <v-card-title>
+        Bank Accounts
+      </v-card-title>
+
+      <!-- Content -->
+      <v-card-text>
+        <BankAccount
+          class="bank-account-dialog__bank-account"
+          v-for="(bankAccount, index) in bankAccounts"
+          :key="index"
+          :name="bankAccount.name"
+          @remove="remove(index)"
+        />
+        <div class="bank-account-dialog__add-button">
+          <v-btn
+            small
+            fab
+            @click="add"
+          >
+            <v-icon color="blue">mdi-plus</v-icon>
+          </v-btn>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import BankAccount from '@/components/BankAccount.vue';
+import { IBankAccount } from '@/types/BankAccount';
+
+export default Vue.extend({
+  name: 'BankAccountsDialog',
+  components: { BankAccount },
+  computed: {
+    bankAccounts(): IBankAccount[] {
+      return this.$store.state.bankAccountsStore.bankAccounts;
+    },
+  },
+  methods: {
+    remove(index: number): void {
+      this.$store.dispatch('removeBankAccount', index);
+    },
+    add() {
+      const defaultBankAccount: IBankAccount = {
+        name: '',
+      };
+      this.$store.dispatch('addBankAccount', defaultBankAccount);
+    },
+  },
+});
+</script>
+
+<style scoped lang="scss">
+.bank-account-dialog__bank-account:not(:nth-child(-1)) {
+  margin-bottom: 15px;
+}
+
+.bank-account-dialog__add-button {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+</style>

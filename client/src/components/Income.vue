@@ -11,13 +11,18 @@
     >
       <v-icon slot="append" color="green">mdi-currency-usd</v-icon>
     </v-text-field>
+    <div class="income__bank-accounts">
+      <BankAccountsDialog />
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
+import BankAccountsDialog from '@/components/BankAccountsDialog.vue';
 
 export default Vue.extend({
+  components: { BankAccountsDialog },
   props: {
     value: {
       required: true,
@@ -27,5 +32,12 @@ export default Vue.extend({
 </script>
 
 <style>
+.income {
+  display: flex;
+  align-items: center;
+}
 
+.income__bank-accounts {
+  margin-left: 20px;
+}
 </style>
