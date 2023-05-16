@@ -47,6 +47,8 @@ import AddBudgetGroupDialog from '@/components/AddBudgetGroupDialog.vue';
 import { setBudgetSheets, getBudgetSheets } from '@/api/budgets';
 import { IBudget, IBudgetGroup, IBudgetSheet } from '@/types/Budget';
 import { isMobile } from '@/utils/mobile';
+import { IBankAccount } from '@/types/BankAccount';
+import { getBankAccounts, setBankAccounts } from '@/api/bankAccounts';
 
 interface IData {
   income: number | null;
@@ -75,6 +77,9 @@ export default Vue.extend({
     budgetSheets(): IBudgetSheet[] {
       return this.$store.state.budgetStore.budgetSheets;
     },
+    bankAccounts(): IBankAccount[] {
+      return this.$store.state.bankAccountsStore.bankAccounts;
+    },
     budgetAllocated(): number {
       // eslint-disable-next-line max-len
       return this.budgetGroups.reduce((totalSum: number, budgetGroup: IBudgetGroup) => totalSum + budgetGroup.budgets.reduce((sum: number, budget: IBudget) => sum + budget.value, 0), 0);
@@ -91,8 +96,13 @@ export default Vue.extend({
       async handler(isSignedIn: boolean) {
         if (isSignedIn) {
           this.isLoading = true;
+
           const budgetSheets = (await getBudgetSheets()).data;
           this.$store.dispatch('setBudgetSheets', budgetSheets);
+
+          const bankAccounts = (await getBankAccounts()).data;
+          this.$store.dispatch('setBankAccounts', bankAccounts);
+
           this.isLoading = false;
         }
       },
@@ -110,6 +120,14 @@ export default Vue.extend({
       handler(budgetSheets: IBudgetSheet[]) {
         if (this.isSignedIn) {
           setBudgetSheets(budgetSheets);
+        }
+      },
+      deep: true,
+    },
+    bankAccounts: {
+      handler(bankAccounts: IBankAccount[]) {
+        if (this.isSignedIn) {
+          setBankAccounts(bankAccounts);
         }
       },
       deep: true,

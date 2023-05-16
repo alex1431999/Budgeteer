@@ -21,6 +21,7 @@
           :key="index"
           :name="bankAccount.name"
           @remove="remove(index)"
+          @name-updated="bankAccount.name = $event"
         />
         <div class="bank-account-dialog__add-button">
           <v-btn

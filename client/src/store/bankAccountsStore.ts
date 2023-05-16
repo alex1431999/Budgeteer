@@ -22,6 +22,9 @@ export const mutations = {
   removeBankAccount(state: IState, index: number): void {
     state.bankAccounts.splice(index, 1);
   },
+  setBankAccounts(state: IState, bankAccounts:IBankAccount[]): void {
+    state.bankAccounts = bankAccounts;
+  },
 };
 
 export const actions = {
@@ -30,6 +33,9 @@ export const actions = {
   },
   removeBankAccount({ commit }: IActionParams, index: number): void {
     commit('removeBankAccount', index);
+  },
+  setBankAccounts({ commit }: IActionParams, bankAccounts: IBankAccount[]): void {
+    commit('setBankAccounts', bankAccounts);
   },
 };
 
