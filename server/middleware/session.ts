@@ -1,5 +1,6 @@
 import sessions from 'express-session';
 import MongoStore from 'connect-mongo';
+import { NextFunction, Request, Response } from 'express';
 import app from '../app';
 
 declare module 'express-session' {
@@ -24,3 +25,12 @@ const options = {
 app.set('trust proxy', 1);
 
 app.use(sessions(options));
+
+function developmentSession(request: Request, response: Response, next: NextFunction) {
+  request.session.userId = '1';
+  next();
+}
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(developmentSession);
+}

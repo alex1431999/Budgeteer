@@ -24,10 +24,23 @@ import SignIn from './views/SignIn.vue';
 export default Vue.extend({
   components: { Header, SignIn },
   name: 'App',
+  provide() {
+    return {
+      isDevelopmentMode: this.isDevelopmentMode,
+    };
+  },
   computed: {
     isSignedIn() {
       return this.$store.state.authStore.isSignedIn;
     },
+    isDevelopmentMode() {
+      return process.env.NODE_ENV === 'development';
+    },
+  },
+  mounted() {
+    if (this.isDevelopmentMode) {
+      this.$store.commit('setIsSignedIn', true);
+    }
   },
 });
 

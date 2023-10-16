@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <navigation-drawer class="header__navigation-drawer" />
-    <google-sign-in-button class="header__google-sign-in-button" />
+    <google-sign-in-button v-if="!isDevelopmentMode" class="header__google-sign-in-button" />
   </div>
 </template>
 
@@ -12,6 +12,7 @@ import NavigationDrawer from './NavigationDrawer.vue';
 export default {
   components: { GoogleSignInButton, NavigationDrawer },
   name: 'Header',
+  inject: ['isDevelopmentMode'],
 };
 </script>
 

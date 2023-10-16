@@ -8,9 +8,30 @@ services:
       - ./client:/usr/src/client
     depends_on:
       - server
+
   server:
     build: ./server
     ports:
       - "3000:3000"
     volumes:
       - ./server:/usr/src/server
+    depends_on:
+      - mongodb
+    networks:
+      - backend-network
+
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - backend-network
+
+volumes:
+  dbdata6:
+
+networks:
+  backend-network:
+    driver: bridge
