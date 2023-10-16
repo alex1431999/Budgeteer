@@ -8,6 +8,7 @@
       :readonly="!editMode"
       :solo="!editMode"
       @keyup.enter="editMode = false"
+      @blur="editMode = false"
       placeholder="Name">
     </v-text-field>
     <v-menu class="bank-account__menu" bottom offset-y>
