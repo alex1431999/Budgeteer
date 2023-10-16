@@ -2,14 +2,15 @@
   <div class="bank-account">
     <v-text-field
       ref="nameInput"
-      :value="name"
-      @change="$emit('name-updated', $event)"
+      placeholder="Name"
       hide-details
+      :value="name"
       :readonly="!editMode"
       :solo="!editMode"
       @keyup.enter="editMode = false"
       @blur="editMode = false"
-      placeholder="Name">
+      @click="editMode = true"
+      @change="$emit('name-updated', $event)">
     </v-text-field>
     <v-menu class="bank-account__menu" bottom offset-y>
       <template v-slot:activator="{ on, attrs  }">
@@ -25,9 +26,6 @@
       </template>
 
       <v-list>
-        <v-list-item @click="rename">
-          Rename
-        </v-list-item>
         <v-list-item @click="remove">
           Delete
         </v-list-item>
