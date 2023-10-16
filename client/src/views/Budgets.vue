@@ -125,9 +125,10 @@ export default Vue.extend({
       deep: true,
     },
     bankAccounts: {
-      handler(bankAccounts: IBankAccount[]) {
+      async handler(bankAccounts: IBankAccount[]) {
         if (this.isSignedIn) {
-          setBankAccounts(bankAccounts);
+          const bankAccountsUpdated: IBankAccount[] = (await setBankAccounts(bankAccounts)).data;
+          this.$store.commit('setBankAccounts', bankAccountsUpdated);
         }
       },
       deep: true,

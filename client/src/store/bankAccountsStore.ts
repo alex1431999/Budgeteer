@@ -1,5 +1,6 @@
 import { IBankAccount } from '@/types/BankAccount';
 import { Commit, Dispatch } from 'vuex';
+import _ from 'lodash';
 
 interface IState {
   bankAccounts: IBankAccount[];
@@ -23,7 +24,7 @@ export const mutations = {
     state.bankAccounts.splice(index, 1);
   },
   setBankAccounts(state: IState, bankAccounts:IBankAccount[]): void {
-    state.bankAccounts = bankAccounts;
+    state.bankAccounts = _.merge(state.bankAccounts, bankAccounts);
   },
 };
 

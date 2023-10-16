@@ -8,7 +8,7 @@ app.post('/bankAccounts', (req: Request<{}, {}, { bankAccounts: IBankAccount[] }
   const { userId } = req.session;
 
   setBankAccounts(userId, bankAccounts)
-    .then(() => res.sendStatus(200))
+    .then((bankAccountsUpdated) => res.status(200).json(bankAccountsUpdated))
     .catch((error) => {
       console.error(error);
       res.sendStatus(500);
