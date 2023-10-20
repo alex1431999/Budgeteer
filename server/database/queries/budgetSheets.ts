@@ -25,7 +25,20 @@ export const setBudgetSheets = async (
     return Promise.reject(new Error(`invalid parameters: userId: ${userId}, budgetSheets: ${budgetSheets}`));
   }
 
-  const budgetSheetsWithId = budgetSheets.map(addId);
+  // Add Ids to every sheet, group and budget
+  // TODO: we could write a generic function here that adds an id on every level of an
+  //  object
+  const budgetSheetsWithId = budgetSheets.map((sheet) => {
+    const sheetWithId = addId(sheet);
+    const budgetGroupsWithId = sheetWithId.budgetGroups?.map((group) => {
+      const budgetGroupWithId = addId(group);
+      const budgetsWithId = budgetGroupWithId.budgets?.map(addId);
+
+      return { ...budgetGroupWithId, budgets: budgetsWithId || [] };
+    });
+
+    return { ...sheetWithId, budgetGroups: budgetGroupsWithId || [] };
+  });
 
   const collection = await getBudgetSheetsCollection();
 
