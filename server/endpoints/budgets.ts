@@ -8,7 +8,7 @@ app.post('/budgetSheets', (req: Request<{}, {}, { budgetSheets: IBudgetSheet[] }
   const { userId } = req.session;
 
   setBudgetSheets(userId, budgetSheets)
-    .then(() => res.sendStatus(200))
+    .then((budgetSheetsUpdated) => res.status(200).json(budgetSheetsUpdated))
     .catch((error) => {
       console.error(error);
       res.sendStatus(500);

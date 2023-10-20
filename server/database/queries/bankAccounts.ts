@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb';
 import { getDb } from '../index';
 import { IBankAccount } from '../../types/BankAccount';
+import { addId } from '../../util/database';
 
 const getBudgetSheetsCollection = async () => {
   const db = await getDb();
@@ -25,10 +25,7 @@ export const setBankAccounts = async (
     return Promise.reject(new Error(`invalid parameters: userId: ${userId}, bankAccounts: ${bankAccounts}`));
   }
 
-  const bankAccountsSanitised = bankAccounts.map((bankAccount) => ({
-    _id: new ObjectId(),
-    ...bankAccount,
-  }));
+  const bankAccountsWithId = bankAccounts.map(addId);
 
   const collection = await getBudgetSheetsCollection();
 
@@ -36,7 +33,7 @@ export const setBankAccounts = async (
 
   await collection.updateOne(
     query,
-    { $set: { userId, bankAccounts: bankAccountsSanitised } },
+    { $set: { userId, bankAccounts: bankAccountsWithId } },
     { upsert: true },
   );
 

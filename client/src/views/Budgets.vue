@@ -117,9 +117,10 @@ export default Vue.extend({
       deep: true,
     },
     budgetSheets: {
-      handler(budgetSheets: IBudgetSheet[]) {
+      async handler(budgetSheets: IBudgetSheet[]) {
         if (this.isSignedIn) {
-          setBudgetSheets(budgetSheets);
+          const budgetSheetsUpdated: IBudgetSheet[] = (await setBudgetSheets(budgetSheets)).data;
+          this.$store.commit('setBudgetSheets', budgetSheetsUpdated);
         }
       },
       deep: true,

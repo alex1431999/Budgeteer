@@ -1,6 +1,7 @@
 import { Commit, Dispatch } from 'vuex';
 
 import { IBudgetSheet, IBudgetGroup } from '@/types/Budget';
+import _ from 'lodash';
 
 interface IState {
   budgetSheets: IBudgetSheet[],
@@ -37,7 +38,7 @@ export const getters = {
 
 export const mutations = {
   setBudgetSheets(state: IState, budgetSheets: IBudgetSheet[]): void {
-    state.budgetSheets = budgetSheets;
+    state.budgetSheets = _.merge(state.budgetSheets, budgetSheets);
   },
   addBudgetSheet(state: IState, budgetSheet: IBudgetSheet): void {
     state.budgetSheets.push(budgetSheet);
