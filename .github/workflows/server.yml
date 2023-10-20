@@ -11,13 +11,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v1
 
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       - name: Install dependencies
-        run: yarn
+        run: bun install
 
       - name: Linting
-        run: yarn lint
+        run: bun lint
+
+      - name: Tests
+        run: bun test

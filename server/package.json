@@ -8,10 +8,12 @@
     "serve": "nodemon server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "lint": "eslint . --ext .js,.ts --fix"
+    "lint": "eslint . --ext .js,.ts --fix",
+    "test": "bun tests"
   },
   "dependencies": {
     "body-parser": "^1.19.1",
+    "bun-types": "^1.0.6",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
