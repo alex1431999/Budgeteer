@@ -38,6 +38,7 @@
         <v-col cols="1">
           <BankAccountSelector
             class="budget__action-button"
+            :value="bankAccountId"
             :bank-accounts="bankAccounts"
             @input="$emit('update:bankAccountId', $event.id)"
           />

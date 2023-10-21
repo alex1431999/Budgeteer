@@ -17,6 +17,9 @@
           <v-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.id">
             <v-btn @click="$emit('input', bankAccount)" text>
               {{ bankAccount.name }}
+              <v-icon v-if="bankAccount.id === value" color="green" right>
+                mdi-check
+              </v-icon>
             </v-btn>
           </v-list-item>
         </v-list>
