@@ -2,6 +2,7 @@ export interface IBudget {
   id: string,
   name: string,
   value: number,
+  bankAccountId?: string,
 }
 
 export interface IBudgetGroup {

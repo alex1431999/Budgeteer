@@ -16,7 +16,7 @@
         </v-col>
 
         <!-- Budget Allocation -->
-        <v-col :cols="isMobile ? 10 : 4">
+        <v-col :cols="isMobile ? 9 : 3">
           <v-text-field
             outlined
             hide-details
@@ -30,9 +30,17 @@
 
         <!-- Delete Budget -->
         <v-col cols="1">
-          <v-btn class="budget__delete-button" fab small @click="$emit('on-delete')">
+          <v-btn class="budget__action-button" fab small @click="$emit('on-delete')">
             <v-icon color="red">mdi-delete</v-icon>
           </v-btn>
+        </v-col>
+
+        <v-col cols="1">
+          <BankAccountSelector
+            class="budget__action-button"
+            :bank-accounts="bankAccounts"
+            @input="$emit('update:bankAccountId', $event.id)"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -50,8 +58,11 @@
 <script lang="ts">
 import { isMobile } from '@/utils/mobile';
 import Vue from 'vue';
+import BankAccountSelector from '@/components/BankAccountSelector.vue';
+import { IBankAccount } from '@/types/BankAccount';
 
 export default Vue.extend({
+  components: { BankAccountSelector },
   props: {
     value: {
       type: Number,
@@ -61,10 +72,17 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+    bankAccountId: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     isMobile(): boolean {
       return isMobile();
+    },
+    bankAccounts(): IBankAccount[] {
+      return this.$store.state.bankAccountsStore.bankAccounts;
     },
   },
 });
@@ -72,7 +90,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .budget {
-  &__delete-button {
+  &__action-button {
     margin-top: 8px;
   }
 }

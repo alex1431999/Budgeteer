@@ -53,6 +53,7 @@
               class="budget-group__budget"
               v-model="budget.value"
               :name.sync="budget.name"
+              :bank-account-id.sync="budget.bankAccountId"
               @on-delete="deleteBudget(i)"
             />
           </div>
