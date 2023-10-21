@@ -16,7 +16,7 @@
         </v-col>
 
         <!-- Budget Allocation -->
-        <v-col :cols="isMobile ? 9 : 3">
+        <v-col :cols="isMobile ? 12 : 3">
           <v-text-field
             outlined
             hide-details
@@ -29,13 +29,13 @@
         </v-col>
 
         <!-- Delete Budget -->
-        <v-col cols="1">
+        <v-col :cols="isMobile ? 6 : 1">
           <v-btn class="budget__action-button" fab small @click="$emit('on-delete')">
             <v-icon color="red">mdi-delete</v-icon>
           </v-btn>
         </v-col>
 
-        <v-col cols="1">
+        <v-col :cols="isMobile ? 6 : 1">
           <BankAccountSelector
             class="budget__action-button"
             :value="bankAccountId"
