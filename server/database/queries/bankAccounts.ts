@@ -1,6 +1,5 @@
 import { getDb } from '../index';
 import { IBankAccount } from '../../types/BankAccount';
-import { addId } from '../../util/database';
 
 const getBudgetSheetsCollection = async () => {
   const db = await getDb();
@@ -25,15 +24,13 @@ export const setBankAccounts = async (
     return Promise.reject(new Error(`invalid parameters: userId: ${userId}, bankAccounts: ${bankAccounts}`));
   }
 
-  const bankAccountsWithId = bankAccounts.map(addId);
-
   const collection = await getBudgetSheetsCollection();
 
   const query = { userId };
 
   await collection.updateOne(
     query,
-    { $set: { userId, bankAccounts: bankAccountsWithId } },
+    { $set: { userId, bankAccounts } },
     { upsert: true },
   );
 

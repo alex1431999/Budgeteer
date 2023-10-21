@@ -91,6 +91,7 @@ import Vue from 'vue';
 import { IBudgetSheet } from '@/types/Budget';
 import { isMobile } from '@/utils/mobile';
 import { copy } from '@/utils/copy';
+import { generateUUID } from '@/utils/uuid';
 
 interface IBudgetSheetDisplayed {
   data: IBudgetSheet,
@@ -134,6 +135,7 @@ export default Vue.extend({
   methods: {
     addSheet(name = 'New Sheet'): void {
       const sheet: IBudgetSheet = {
+        id: generateUUID(),
         name: this.pickAvailableSheetName(name),
         budgetGroups: [],
         income: null,

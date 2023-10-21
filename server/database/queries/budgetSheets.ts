@@ -1,6 +1,5 @@
 import { getDb } from '../index';
 import { IBudgetSheet } from '../../types/Budget';
-import { addId, addIdsToNestedObject } from '../../util/database';
 
 const getBudgetSheetsCollection = async () => {
   const db = await getDb();
@@ -25,16 +24,13 @@ export const setBudgetSheets = async (
     return Promise.reject(new Error(`invalid parameters: userId: ${userId}, budgetSheets: ${budgetSheets}`));
   }
 
-  // Add Ids to every sheet, group and budget
-  const budgetSheetsWithId = budgetSheets.map(addIdsToNestedObject);
-
   const collection = await getBudgetSheetsCollection();
 
   const query = { userId };
 
   await collection.updateOne(
     query,
-    { $set: { userId, budgetSheets: budgetSheetsWithId } },
+    { $set: { userId, budgetSheets } },
     { upsert: true },
   );
 

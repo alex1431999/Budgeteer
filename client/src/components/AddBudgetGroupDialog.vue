@@ -52,6 +52,7 @@
 import Vue from 'vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
 import { IBudgetGroup } from '@/types/Budget';
+import { generateUUID } from '@/utils/uuid';
 import IconSelector from './IconSelector.vue';
 
 interface IData {
@@ -67,9 +68,10 @@ export default Vue.extend({
       ICON_SELECTION_BUDGET_GROUPS,
       show: false,
       budgetGroupData: {
+        id: generateUUID(),
         name: '',
         icon: ICON_SELECTION_BUDGET_GROUPS[0],
-        budgets: [{ name: '', value: 0 }],
+        budgets: [{ id: generateUUID(), name: '', value: 0 }],
       },
     };
   },

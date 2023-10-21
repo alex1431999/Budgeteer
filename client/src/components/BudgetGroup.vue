@@ -79,6 +79,7 @@ import Budget from '@/components/Budget.vue';
 import { ICON_SELECTION_BUDGET_GROUPS } from '@/config/iconSelection';
 import { IBudget, IBudgetGroup } from '@/types/Budget';
 import { isMobile } from '@/utils/mobile';
+import { generateUUID } from '@/utils/uuid';
 import IconSelector from './IconSelector.vue';
 
 interface IData {
@@ -122,6 +123,7 @@ export default Vue.extend({
   methods: {
     addBudget(): void {
       const budget: IBudget = {
+        id: generateUUID(),
         name: '',
         value: 0,
       };

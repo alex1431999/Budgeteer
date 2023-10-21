@@ -117,19 +117,17 @@ export default Vue.extend({
       deep: true,
     },
     budgetSheets: {
-      async handler(budgetSheets: IBudgetSheet[]) {
+      handler(budgetSheets: IBudgetSheet[]) {
         if (this.isSignedIn) {
-          const budgetSheetsUpdated: IBudgetSheet[] = (await setBudgetSheets(budgetSheets)).data;
-          this.$store.commit('setBudgetSheets', budgetSheetsUpdated);
+          setBudgetSheets(budgetSheets);
         }
       },
       deep: true,
     },
     bankAccounts: {
-      async handler(bankAccounts: IBankAccount[]) {
+      handler(bankAccounts: IBankAccount[]) {
         if (this.isSignedIn) {
-          const bankAccountsUpdated: IBankAccount[] = (await setBankAccounts(bankAccounts)).data;
-          this.$store.commit('setBankAccounts', bankAccountsUpdated);
+          setBankAccounts(bankAccounts);
         }
       },
       deep: true,

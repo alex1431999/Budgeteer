@@ -41,6 +41,7 @@
 import Vue from 'vue';
 import BankAccount from '@/components/BankAccount.vue';
 import { IBankAccount } from '@/types/BankAccount';
+import { generateUUID } from '@/utils/uuid';
 
 export default Vue.extend({
   name: 'BankAccountsDialog',
@@ -56,6 +57,7 @@ export default Vue.extend({
     },
     add() {
       const defaultBankAccount: IBankAccount = {
+        id: generateUUID(),
         name: '',
       };
       this.$store.dispatch('addBankAccount', defaultBankAccount);

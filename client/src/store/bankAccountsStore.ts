@@ -24,7 +24,7 @@ export const mutations = {
     state.bankAccounts.splice(index, 1);
   },
   setBankAccounts(state: IState, bankAccounts:IBankAccount[]): void {
-    state.bankAccounts = _.merge(state.bankAccounts, bankAccounts);
+    state.bankAccounts = bankAccounts;
   },
 };
 

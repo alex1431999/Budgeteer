@@ -1,7 +1,7 @@
 import { Commit, Dispatch } from 'vuex';
 
 import { IBudgetSheet, IBudgetGroup } from '@/types/Budget';
-import _ from 'lodash';
+import { generateUUID } from '@/utils/uuid';
 
 interface IState {
   budgetSheets: IBudgetSheet[],
@@ -18,6 +18,7 @@ interface IActionParams {
  * Default budget sheet which is loaded if the user doesn't have a sheet yet
  */
 const budgetSheetDefault: IBudgetSheet = {
+  id: generateUUID(),
   name: 'New Sheet',
   budgetGroups: [],
   income: null,
@@ -38,7 +39,7 @@ export const getters = {
 
 export const mutations = {
   setBudgetSheets(state: IState, budgetSheets: IBudgetSheet[]): void {
-    state.budgetSheets = _.merge(state.budgetSheets, budgetSheets);
+    state.budgetSheets = budgetSheets;
   },
   addBudgetSheet(state: IState, budgetSheet: IBudgetSheet): void {
     state.budgetSheets.push(budgetSheet);
