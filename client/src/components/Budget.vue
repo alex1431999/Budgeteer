@@ -9,6 +9,7 @@
             placeholder="Name"
             hide-details
             outlined
+            :background-color="color"
             :value="name"
             @input="value => $emit('update:name', value || '')"
           >
@@ -22,6 +23,7 @@
             hide-details
             type="number"
             :value="value"
+            :background-color="color"
             @input="value => $emit('input', parseInt(value) || 0)"
           >
             <v-icon slot="append" color="blue">mdi-currency-usd</v-icon>
@@ -61,6 +63,7 @@ import { isMobile } from '@/utils/mobile';
 import Vue from 'vue';
 import BankAccountSelector from '@/components/BankAccountSelector.vue';
 import { IBankAccount } from '@/types/BankAccount';
+import { applyOpacity } from '@/utils/color';
 
 export default Vue.extend({
   components: { BankAccountSelector },
@@ -84,6 +87,15 @@ export default Vue.extend({
     },
     bankAccounts(): IBankAccount[] {
       return this.$store.state.bankAccountsStore.bankAccounts;
+    },
+    bankAccount(): IBankAccount | null {
+      return this.bankAccounts.find(({ id }) => id === this.bankAccountId) || null;
+    },
+    color(): string | null {
+      if (this.bankAccount === null) {
+        return null;
+      }
+      return applyOpacity(this.bankAccount.color, 40);
     },
   },
 });

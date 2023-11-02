@@ -20,8 +20,10 @@
           v-for="(bankAccount, index) in bankAccounts"
           :key="index"
           :name="bankAccount.name"
+          :color="bankAccount.color"
           @remove="remove(index)"
           @name-updated="bankAccount.name = $event"
+          @color-updated="bankAccount.color = $event"
         />
         <div class="bank-account-dialog__add-button">
           <v-btn
@@ -59,6 +61,7 @@ export default Vue.extend({
       const defaultBankAccount: IBankAccount = {
         id: generateUUID(),
         name: '',
+        color: '#008080',
       };
       this.$store.dispatch('addBankAccount', defaultBankAccount);
     },
