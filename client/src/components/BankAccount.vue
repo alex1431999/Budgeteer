@@ -4,13 +4,9 @@
       ref="nameInput"
       placeholder="Name"
       hide-details
+      solo
       :value="name"
-      :readonly="!editMode"
-      :solo="!editMode"
       :background-color="backgroundColor"
-      @keyup.enter="editMode = false"
-      @blur="editMode = false"
-      @click="editMode = true"
       @change="$emit('name-updated', $event)">
     </v-text-field>
     <ColorSelector
@@ -45,18 +41,9 @@ import Vue from 'vue';
 import ColorSelector from '@/components/ColorSelector.vue';
 import { applyOpacity } from '@/utils/color';
 
-interface IData {
-  editMode: boolean
-}
-
 export default Vue.extend({
   name: 'BankAccount',
   components: { ColorSelector },
-  data(): IData {
-    return {
-      editMode: false,
-    };
-  },
   props: {
     name: {
       type: String,
