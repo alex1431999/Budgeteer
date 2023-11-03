@@ -13,15 +13,14 @@
       </template>
 
       <v-card>
-        <v-list v-if="bankAccounts.length > 0">
-          <v-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.id">
-            <v-btn @click="$emit('input', bankAccount)" text>
-              {{ bankAccount.name }}
-              <v-icon v-if="bankAccount.id === value" color="green" right>
-                mdi-check
-              </v-icon>
-            </v-btn>
-          </v-list-item>
+        <v-list dense v-if="bankAccounts.length > 0">
+          <v-list-item-group color="primary" :value="selectedBankAccountPosition">
+            <v-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.id">
+              <v-list-item-content @click="$emit('input', bankAccount)">
+                <v-list-item-title v-text="bankAccount.name"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
         <v-card-text v-else>
           You don't have any bank accounts yet
@@ -53,6 +52,11 @@ export default Vue.extend({
     bankAccounts: {
       type: Array as PropType<IBankAccount[]>,
       default: (): IBankAccount[] => [],
+    },
+  },
+  computed: {
+    selectedBankAccountPosition(): number {
+      return this.bankAccounts?.findIndex(({ id }) => id === this.value);
     },
   },
 });
