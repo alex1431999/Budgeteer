@@ -36,12 +36,14 @@ import { IBankAccount } from '@/types/BankAccount';
 
 interface IData {
   show: boolean,
+  selectedBankAccountPosition: number | null,
 }
 
 export default Vue.extend({
   data(): IData {
     return {
       show: false,
+      selectedBankAccountPosition: null,
     };
   },
   props: {
@@ -54,9 +56,17 @@ export default Vue.extend({
       default: (): IBankAccount[] => [],
     },
   },
-  computed: {
-    selectedBankAccountPosition(): number {
-      return this.bankAccounts?.findIndex(({ id }) => id === this.value);
+  watch: {
+    value: {
+      handler(value) {
+        this.setSelectedBankAccountPosition(value);
+      },
+      immediate: true,
+    },
+  },
+  methods: {
+    setSelectedBankAccountPosition(value: string) {
+      this.selectedBankAccountPosition = this.bankAccounts?.findIndex(({ id }) => id === value);
     },
   },
 });
