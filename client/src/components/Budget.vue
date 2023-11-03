@@ -30,13 +30,7 @@
           </v-text-field>
         </v-col>
 
-        <!-- Delete Budget -->
-        <v-col :cols="isMobile ? 6 : 1">
-          <v-btn class="budget__action-button" fab small @click="$emit('on-delete')">
-            <v-icon color="red">mdi-delete</v-icon>
-          </v-btn>
-        </v-col>
-
+        <!-- Bank account selector -->
         <v-col :cols="isMobile ? 6 : 1">
           <BankAccountSelector
             class="budget__action-button"
@@ -44,6 +38,13 @@
             :bank-accounts="bankAccounts"
             @input="$emit('update:bankAccountId', $event.id)"
           />
+        </v-col>
+
+        <!-- Delete Budget -->
+        <v-col :cols="isMobile ? 6 : 1">
+          <v-btn class="budget__action-button" fab small @click="$emit('on-delete')">
+            <v-icon color="red">mdi-delete</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
