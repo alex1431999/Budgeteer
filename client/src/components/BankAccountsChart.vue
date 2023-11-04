@@ -52,6 +52,7 @@ export default Vue.extend({
         responsive: true,
         plugins: {
           legend: {
+            display: false,
             labels: {
               color: '#FFFFFF',
             },
