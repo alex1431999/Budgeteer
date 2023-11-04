@@ -13,7 +13,7 @@ import {
   Chart as ChartJS, ArcElement, Legend, ChartData, Tooltip,
 } from 'chart.js';
 import { IBankAccount } from '@/types/BankAccount';
-import { IBudget, IBudgetGroup } from '@/types/Budget';
+import { IBudget, IBudgetGroup, IBudgetSheet } from '@/types/Budget';
 
 ChartJS.register(ArcElement);
 ChartJS.register(Legend);
@@ -29,6 +29,12 @@ export default Vue.extend({
     },
   },
   computed: {
+    budgetSheetSelected(): IBudgetSheet {
+      return this.$store.state.budgetStore.budgetSheetSelected;
+    },
+    income(): number | null {
+      return this.budgetSheetSelected.income;
+    },
     chartData(): ChartData {
       const config = {
         labels: [] as Array<string>,
@@ -39,11 +45,22 @@ export default Vue.extend({
         }],
       };
 
+      let totalBudgetAllocated = 0;
       (this.bankAccounts as IBankAccount[]).forEach((bankAccount: IBankAccount) => {
+        const budgetAllocated = this.getBudgetAllocated(bankAccount);
+
         config.labels.push(bankAccount.name);
-        config.datasets[0].data.push(this.getBudgetAllocated(bankAccount));
+        config.datasets[0].data.push(budgetAllocated);
         config.datasets[0].backgroundColor.push(bankAccount.color);
+
+        totalBudgetAllocated += budgetAllocated;
       });
+
+      const excess = (this.income || 0) - totalBudgetAllocated;
+
+      config.labels.push('Excess');
+      config.datasets[0].data.push(excess);
+      config.datasets[0].backgroundColor.push('#4CAF50');
 
       return config;
     },
@@ -63,7 +80,7 @@ export default Vue.extend({
   },
   methods: {
     getBudgetAllocated(bankAccount: IBankAccount): number {
-      const { budgetGroups } = this.$store.state.budgetStore.budgetSheetSelected;
+      const { budgetGroups } = this.budgetSheetSelected;
       return budgetGroups.reduce((sum: number, budgetGroup: IBudgetGroup) => {
         const budgets = budgetGroup.budgets
           .filter(({ bankAccountId }) => bankAccountId === bankAccount.id);
