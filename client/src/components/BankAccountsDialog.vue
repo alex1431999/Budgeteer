@@ -15,6 +15,8 @@
 
       <!-- Content -->
       <v-card-text>
+        <BankAccountsChart :bank-accounts="bankAccounts" />
+        <v-divider />
         <BankAccount
           class="bank-account-dialog__bank-account"
           v-for="(bankAccount, index) in bankAccounts"
@@ -44,10 +46,11 @@ import Vue from 'vue';
 import BankAccount from '@/components/BankAccount.vue';
 import { IBankAccount } from '@/types/BankAccount';
 import { generateUUID } from '@/utils/uuid';
+import BankAccountsChart from '@/components/BankAccountsChart.vue';
 
 export default Vue.extend({
   name: 'BankAccountsDialog',
-  components: { BankAccount },
+  components: { BankAccountsChart, BankAccount },
   computed: {
     bankAccounts(): IBankAccount[] {
       return this.$store.state.bankAccountsStore.bankAccounts;
@@ -71,6 +74,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .bank-account-dialog__bank-account:not(:nth-child(-1)) {
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 
